@@ -1,0 +1,66 @@
+@layer components {
+  .social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: #171717;
+    background-color: transparent;
+    border: 2px solid #e5e5e5;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .social-icon {
+      border-color: #333;
+      color: #fff;
+    }
+  }
+
+  .social-icon svg {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .social-icon::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--brand-color, #1DA1F2);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+
+  .social-icon:hover {
+    border-color: var(--brand-color, #1DA1F2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px -5px var(--brand-color, #1DA1F2);
+    color: white !important;
+  }
+
+  .social-icon:hover::before {
+    transform: translateY(0);
+  }
+
+  .social-icon:hover svg {
+    transform: scale(1.15);
+  }
+
+  .icon-facebook { --brand-color: #1877F2; }
+  .icon-instagram { --brand-color: #E4405F; }
+  .icon-x { --brand-color: #000000; }
+
+  @media (prefers-color-scheme: dark) {
+    .icon-x { --brand-color: #1DA1F2; }
+  }
+}
