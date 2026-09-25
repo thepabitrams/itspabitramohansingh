@@ -177,6 +177,8 @@ This project is licensed under the MIT License. See the [LICENSE](../../LICENSE)
 
 **Built with** [Astro](https://astro.build/) & [Tailwind CSS v4](https://tailwindcss.com/)
 
+**Author:** [Pabitra Mohan Singh](https://www.linkedin.com/in/pabitramohansingh)
+
 *Last updated: September 2026*
 
 </div>
