@@ -20,7 +20,6 @@
 ## Features
 
 - Dark / Light Theme – client-side toggle with local storage persistence
-- MDX Content Collections – project pages with Zod-validated frontmatter
 - Static Site Generation – fully pre-rendered HTML, zero client-side JavaScript by default
 - SEO Optimized – meta tags, Open Graph, semantic HTML5
 - Fully Responsive – mobile-first layout with Tailwind CSS
@@ -35,7 +34,7 @@
 
 - Astro 7
 - Tailwind CSS 4
-- TypeScript 5
+- TypeScript 7
 - Vite (bundled with Astro)
 - PNPM
 
@@ -51,7 +50,6 @@ The codebase follows a component-based architecture designed for clarity and mai
 - **Layouts** – Page shells and shared layout pieces (BaseLayout.astro, Header.astro, Footer.astro)
 - **Components** – Reusable UI pieces (home, ui, interactive, seo)
 - **Styles** – Modular CSS architecture (tokens, base, components, animations)
-- **Types** – TypeScript type definitions
 
 ### Dependency Flow
 
@@ -114,8 +112,6 @@ pnpm preview
 ## Documentation
 
 - [CSS Architecture](./src/styles/README.md) – Design system, cascade layers, and usage guidelines
-- [Third-Party Licenses](./THIRD-PARTY/) – Full license texts for all dependencies
-- [NOTICE](./NOTICE) – Attribution for third-party software
 
 ---
 
@@ -124,7 +120,6 @@ pnpm preview
 Built with Astro, Tailwind CSS, and TypeScript. Built with a modular, scalable architecture for maintainability and developer experience.
 
 See the [NOTICE](./NOTICE) file and [THIRD-PARTY](./THIRD-PARTY/) folder for full attribution.
-
 
 ---
 
