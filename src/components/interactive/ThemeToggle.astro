@@ -18,7 +18,7 @@
 
     const rootElement = document.documentElement;
 
-    function applyTheme(isDark) {
+    function applyTheme(isDark: boolean) {
       if (isDark) {
         rootElement.classList.add('dark');
         localStorage.setItem('theme', 'dark');
