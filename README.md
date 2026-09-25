@@ -1,7 +1,19 @@
 
+<div align="center">
+
 # Portfolio Website by Pabitra Mohan Singh
 
-A modern, performant personal portfolio built with Astro, Tailwind CSS, and TypeScript to showcase my skills, experience, and projects.
+**A modern, performant personal portfolio built with Astro, Tailwind CSS, and TypeScript to showcase my skills, experience, and projects.**
+
+[![Astro](https://img.shields.io/badge/Astro-5.x-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
+---
+
+*Single source of truth for design tokens, component patterns, and motion.*
+
+</div>
 
 ---
 
@@ -15,6 +27,7 @@ A modern, performant personal portfolio built with Astro, Tailwind CSS, and Type
 - Blazing Fast – inline critical CSS, HTML compression, no render-blocking scripts
 - Accessible – semantic landmarks, heading hierarchy, skip-to-main-content link
 - TypeScript – end-to-end static type checking
+- Modular CSS Architecture – cascade layers with tokens, base, components, and animations
 
 ---
 
@@ -23,7 +36,6 @@ A modern, performant personal portfolio built with Astro, Tailwind CSS, and Type
 - Astro 7
 - Tailwind CSS 4
 - TypeScript 5
-- MDX
 - Vite (bundled with Astro)
 - PNPM
 
@@ -35,25 +47,21 @@ The codebase follows a component-based architecture designed for clarity and mai
 
 ### Core Layers
 
-- **Pages** – Route definitions (`index.astro`, `projects.astro`)
+- **Pages** – Route definitions (`index.astro`)
 - **Layouts** – Page shells and shared layout pieces (BaseLayout.astro, Header.astro, Footer.astro)
-- **Components** – Reusable UI pieces (home, projects, layout, ui, seo)
-- **Content** – MDX collections with Zod schema validation
-- **Styles** – Global CSS and custom animations
+- **Components** – Reusable UI pieces (home, ui, interactive, seo)
+- **Styles** – Modular CSS architecture (tokens, base, components, animations)
 - **Types** – TypeScript type definitions
 
 ### Dependency Flow
 
 ```text
-Pages → Layouts → Components → Styles → Types
-                                          ↑
-                                       Content  
+Pages → Layouts → Components → Styles 
 ```
 
-- Pages import from Layouts, Components, and Content
+- Pages import from Layouts, Components
 - Layouts import from Components and Styles
-- Components import from Styles and Types
-- Content imports from Types only
+- Components import from Styles
 - Types has no dependencies
 
 This hierarchy prevents circular dependencies and keeps the codebase predictable.
@@ -69,8 +77,8 @@ This hierarchy prevents circular dependencies and keeps the codebase predictable
 ### Installation
 
 ```bash
-git clone https://github.com/thepabitrams/pabitramohansingh.git
-cd pabitramohansingh
+git clone https://github.com/thepabitrams/itspabitramohansingh.git
+cd itspabitramohansingh
 pnpm install
 ```
 
@@ -97,17 +105,31 @@ pnpm preview
 ```text
    src/
     ├── components/   # Reusable Astro UI components
-    ├── content/      # MDX project collections with Zod schema
     ├── layouts/      # Page layout wrappers
-    ├── pages/        # Route definitions (home, projects)
-    ├── styles/       # Global CSS and custom animations
-    └── types/        # TypeScript type definitions
+    ├── pages/        # Route definitions (home)
+    └── styles/       # Modular CSS architecture (tokens, base, components, animations)
 ```
 ---
 
-## Acknowledgements
-Built with Astro, Tailwind CSS, and TypeScript. Built with a modular, scalable architecture for maintainability and developer experience.
+## Documentation
+
+- [CSS Architecture](./src/styles/README.md) – Design system, cascade layers, and usage guidelines
+- [Third-Party Licenses](./THIRD-PARTY/) – Full license texts for all dependencies
+- [NOTICE](./NOTICE) – Attribution for third-party software
 
 ---
 
-Made by Pabitra Mohan Singh
+## Acknowledgements
+
+Built with Astro, Tailwind CSS, and TypeScript. Built with a modular, scalable architecture for maintainability and developer experience.
+
+See the [NOTICE](./NOTICE) file and [THIRD-PARTY](./THIRD-PARTY/) folder for full attribution.
+
+
+---
+
+<div align="center">
+
+**Made by [Pabitra Mohan Singh](https://www.linkedin.com/in/pabitramohansingh)**
+
+</div>
