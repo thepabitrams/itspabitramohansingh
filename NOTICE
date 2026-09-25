@@ -1,0 +1,30 @@
+NOTICE
+
+This project includes software developed by third parties.
+
+---
+
+TypeScript
+https://www.typescriptlang.org
+License: Apache License 2.0
+Copyright (c) Microsoft Corporation.
+
+---
+
+Astro
+https://astro.build
+License: MIT License
+Copyright (c) Astro Contributors.
+
+---
+
+Tailwind CSS
+https://tailwindcss.com
+License: MIT License
+Copyright (c) Tailwind Labs, Inc.
+
+---
+
+Additional third-party dependencies are licensed under the MIT License.
+
+Full license texts are available in the THIRD-PARTY/ directory.
