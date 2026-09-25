@@ -18,16 +18,16 @@
 
 ## Table of Contents
 
-- [Overview](#-overview)
-- [Why Modular Architecture?](#-why-modular-architecture)
-- [File Structure](#-file-structure)
-- [File Reference](#-file-reference)
-- [Layer Order & Cascade](#-layer-order--cascade)
-- [Usage Guidelines](#-usage-guidelines)
-- [Design Tokens](#-design-tokens)
-- [Adding New Styles](#-adding-new-styles)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Overview](#overview)
+- [Why Modular Architecture?](#why-modular-architecture)
+- [File Structure](#file-structure)
+- [File Reference](#file-reference)
+- [Layer Order & Cascade](#layer-order--cascade)
+- [Usage Guidelines](#usage-guidelines)
+- [Design Tokens](#design-tokens)
+- [Adding New Styles](#adding-new-styles)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
