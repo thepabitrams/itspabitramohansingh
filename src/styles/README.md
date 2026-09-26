@@ -80,7 +80,7 @@ src/styles/
 | `tokens.css` | `@layer theme` | Single source of truth for all design tokens: colors, fonts, spacing scales. | When changing brand colors, fonts, or spacing values. |
 | `base.css` | `@layer base` | Element resets, default typography, scroll behavior, reduced-motion handling. | When changing default HTML element styles. |
 | `components.css` | `@layer components` | Reusable, overridable component patterns (e.g., `.social-icon`). | When building a new UI component or modifying an existing one. |
-| `animations.css` | Global | All `@keyframes` definitions and animation utility classes. | When adding or modifying motion effects. |
+| `animations.css` | Global | Animation delay utilities. | When adding or modifying animation delays. |
 
 ---
 
@@ -137,7 +137,7 @@ All design tokens are defined in `tokens.css` inside the `@theme` block. This is
 |:---|:---|:---|
 | Primary colors | `--color-primary-*` | `--color-primary`, `--color-primary-dark` |
 | Neutral scale | `--color-neutral-*` | `--color-neutral-50` through `--color-neutral-950` |
-| Typography | `--font-family-*` | `--font-family-sans` |
+| Typography | `--font-*` | `--font-sans` |
 
 To change the primary brand color across the entire site, modify **only** the value in `tokens.css`. Every component, utility, and animation that references the token will update automatically.
 
