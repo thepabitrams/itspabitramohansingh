@@ -24,6 +24,9 @@
   --spacing-icon-inner: 22px;
   --spacing-icon-inner-compact: 20px;
 
+  --spacing-photo: 320px;
+  --spacing-photo-compact: 240px;
+
   --radius-icon: 14px;
   --radius-tooltip: 8px;
   --radius-pill: 9999px;
@@ -49,6 +52,9 @@
   --shadow-glow-x: 0 14px 28px -8px rgba(74, 74, 74, 0.70);
   --shadow-glow-gmail: 0 14px 28px -8px rgba(66, 133, 244, 0.35);
 
+  --shadow-photo: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(26, 115, 232, 0.2);
+  --shadow-photo-hover: 0 24px 70px rgba(0, 0, 0, 0.2), 0 0 0 6px rgba(26, 115, 232, 0.4);
+
   --color-icon-bg: rgba(127, 127, 127, 0.08);
   --color-icon-border: rgba(127, 127, 127, 0.18);
   --color-tooltip-bg: #0D1117;
@@ -59,6 +65,7 @@
   --animate-slide-in-left: slide-in-left 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
   --animate-slide-in-right: slide-in-right 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
   --animate-slide-in-up: slide-in-up 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+  --animate-profile-cycle: profile-cycle 28s linear infinite;
 
   @keyframes icon-pop {
     0% { transform: scale(1); }
@@ -90,5 +97,14 @@
   @keyframes slide-in-up {
     0% { transform: translateY(40px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes profile-cycle {
+    0%      { opacity: 0; transform: scale(1); }
+    1.79%   { opacity: 1; transform: scale(1.01); }
+    12.5%   { opacity: 1; transform: scale(1.06); }
+    14.29%  { opacity: 0; transform: scale(1.06); }
+    14.30%  { opacity: 0; transform: scale(1); }
+    100%    { opacity: 0; transform: scale(1); }
   }
 }
