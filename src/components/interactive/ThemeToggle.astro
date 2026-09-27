@@ -1,47 +1,61 @@
+---
+---
+
 <button
+  type="button"
   id="theme-toggle"
-  class="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-950 relative"
+  class="icon-button icon-button--theme"
   aria-label="Toggle theme"
 >
-  <svg class="w-5 h-5 text-neutral-700 dark:hidden transition-transform duration-500 hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-  </svg>
-  <svg class="w-5 h-5 text-neutral-300 hidden dark:block transition-transform duration-500 hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-  </svg>
+  <span class="icon-button__tooltip">Theme</span>
+  <span class="icon-button__inner">
+    <svg class="icon icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.2"/>
+      <path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/>
+    </svg>
+    <svg class="icon icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+    </svg>
+  </span>
 </button>
 
 <script>
-  (function () {
-    const toggleButton = document.getElementById('theme-toggle');
-    if (!toggleButton) return;
-
-    const rootElement = document.documentElement;
-
-    function applyTheme(isDark: boolean) {
-      if (isDark) {
-        rootElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        rootElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-    const savedTheme = localStorage.getItem('theme');
-
-    if (savedTheme === 'dark') {
-      applyTheme(true);
-    } else if (savedTheme === 'light') {
-      applyTheme(false);
+  function applyTheme(isDark: boolean): void {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
-      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      applyTheme(prefersDarkMode);
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
+  }
+
+  function getSavedTheme(): boolean {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') return true;
+    if (saved === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  document.addEventListener('astro:after-swap', () => {
+    const isDark = getSavedTheme();
+    document.documentElement.classList.toggle('dark', isDark);
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    const isDark = getSavedTheme();
+    document.documentElement.classList.toggle('dark', isDark);
+
+    const toggleButton = document.getElementById('theme-toggle');
+    if (!toggleButton || toggleButton.dataset.bound === 'true') return;
+    toggleButton.dataset.bound = 'true';
 
     toggleButton.addEventListener('click', () => {
-      const isDarkMode = rootElement.classList.contains('dark');
-      applyTheme(!isDarkMode);
+      const currentlyDark = document.documentElement.classList.contains('dark');
+      applyTheme(!currentlyDark);
     });
-  })();
+  });
 </script>

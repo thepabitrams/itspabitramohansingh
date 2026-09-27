@@ -1,9 +1,11 @@
 ---
 import ThemeToggle from '@/components/interactive/ThemeToggle.astro';
+import MusicToggle from '@/components/interactive/MusicToggle.astro';
 
 const currentPath = Astro.url.pathname;
 const navLinks = [
   { href: '/home', label: 'Home' },
+  { href: '/guestbook', label: 'Guestbook' },
 ];
 ---
 
@@ -24,6 +26,7 @@ const navLinks = [
           {link.label}
         </a>
       ))}
+      <MusicToggle />
       <ThemeToggle />
     </nav>
   </div>

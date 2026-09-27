@@ -20,6 +20,7 @@
 ## Features
 
 - Dark / Light Theme – client-side toggle with local storage persistence
+- Background Music Player – autoplay on first interaction, loops seamlessly across page navigations
 - Static Site Generation – fully pre-rendered HTML, zero client-side JavaScript by default
 - SEO Optimized – meta tags, Open Graph, semantic HTML5
 - Fully Responsive – mobile-first layout with Tailwind CSS
@@ -46,7 +47,7 @@ The codebase follows a component-based architecture designed for clarity and mai
 
 ### Core Layers
 
-- **Pages** – Route definitions (`index.astro`)
+- **Pages** – Route definitions (`index.astro`, `guestbook.astro`)
 - **Layouts** – Page shells and shared layout pieces (BaseLayout.astro, Header.astro, Footer.astro)
 - **Components** – Reusable UI pieces (home, ui, interactive, seo)
 - **Styles** – Modular CSS architecture (tokens, base, components, animations)
@@ -69,8 +70,9 @@ This hierarchy prevents circular dependencies and keeps the codebase predictable
 ## Getting Started
 
 ### Prerequisites
- Node.js 22.12.0 or later
- PNPM 9.0 or later
+
+- Node.js 22.12.0 or later
+- PNPM 9.0 or later
 
 ### Installation
 
@@ -82,8 +84,24 @@ pnpm install
 
 ### Development
 
+Start the dev server:
+
 ```bash
 pnpm dev
+```
+
+When developing with AI coding agents (Claude Code, Cursor, etc.), use background mode:
+
+```bash
+astro dev --background
+```
+
+Manage the background server:
+
+```bash
+astro dev status   # Check if running
+astro dev logs     # View output
+astro dev stop     # Stop server
 ```
 
 ### Production Build
@@ -104,7 +122,7 @@ pnpm preview
    src/
     ├── components/   # Reusable Astro UI components
     ├── layouts/      # Page layout wrappers
-    ├── pages/        # Route definitions (home)
+    ├── pages/        # Route definitions (home, guestbook)
     └── styles/       # Modular CSS architecture (tokens, base, components, animations)
 ```
 ---
@@ -112,6 +130,7 @@ pnpm preview
 ## Documentation
 
 - [CSS Architecture](./src/styles/README.md) – Design system, cascade layers, and usage guidelines
+- [AGENTS.md](./AGENTS.md) – Instructions for AI coding agents working on this project
 
 ---
 
@@ -119,7 +138,7 @@ pnpm preview
 
 Built with Astro, Tailwind CSS, and TypeScript. Built with a modular, scalable architecture for maintainability and developer experience.
 
-See the [NOTICE](./NOTICE) file and [THIRD-PARTY](./THIRD-PARTY/) folder for full attribution.
+See the [NOTICE](./NOTICE) file and [LICENSES](./LICENSES/) folder for full attribution.
 
 ---
 

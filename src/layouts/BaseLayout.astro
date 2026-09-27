@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import Head from '@/components/seo/Head.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
@@ -21,16 +22,132 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/png" sizes="128x128" href="/favicon/favicon-128.png" />
     <link rel="icon" type="image/png" sizes="256x256" href="/favicon/favicon-256.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+
+    <ClientRouter />
   </head>
   <body>
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white dark:bg-neutral-900 p-4 z-50 rounded-lg shadow-lg">
       Skip to main content
     </a>
 
-    <Header />
+    <Header transition:persist />
     <main id="main-content">
       <slot />
     </main>
     <Footer />
+
+    <audio
+      id="bg-music"
+      src="/music/bg-loop.mp3"
+      loop
+      preload="auto"
+      playsinline
+      aria-hidden="true"
+      transition:persist
+    ></audio>
+
+    <script>
+      interface MusicGlobalState {
+        __musicInit?: boolean;
+      }
+
+      const musicInitRegistry = window as unknown as MusicGlobalState;
+
+      if (!musicInitRegistry.__musicInit) {
+        musicInitRegistry.__musicInit = true;
+
+        let backgroundMusicPlayer: HTMLAudioElement | null = null;
+        let musicToggleButton: HTMLElement | null = null;
+        let musicTooltipElement: HTMLElement | null = null;
+        let hasUserInteracted = false;
+        let isMusicPlaying = false;
+
+        const ACTIVATION_EVENTS = ['click', 'keydown', 'touchend', 'mousedown'] as const;
+        const MOUSE_POINTER_TYPE = 'mouse';
+
+        const bindMusicElements = (): void => {
+          backgroundMusicPlayer = document.getElementById('bg-music') as HTMLAudioElement | null;
+          musicToggleButton = document.getElementById('music-toggle');
+          musicTooltipElement = musicToggleButton?.querySelector<HTMLElement>('.icon-button__tooltip') ?? null;
+          if (backgroundMusicPlayer && musicToggleButton) attachMusicToggleListener();
+        };
+
+        const reflectMusicPlayback = (playing: boolean): void => {
+          isMusicPlaying = playing;
+          musicToggleButton?.classList.toggle('is-playing', playing);
+          musicToggleButton?.setAttribute('aria-pressed', String(playing));
+          musicToggleButton?.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+          if (musicTooltipElement) musicTooltipElement.textContent = playing ? 'Pause' : 'Play';
+        };
+
+        const playBackgroundMusic = (): void => {
+          backgroundMusicPlayer?.play()
+            .then(() => reflectMusicPlayback(true))
+            .catch(() => reflectMusicPlayback(false));
+        };
+
+        const pauseBackgroundMusic = (): void => {
+          backgroundMusicPlayer?.pause();
+          reflectMusicPlayback(false);
+        };
+
+        const removeAllActivationListeners = (): void => {
+          ACTIVATION_EVENTS.forEach((eventName) => {
+            document.removeEventListener(eventName, handleUserActivation, true);
+          });
+          document.removeEventListener('pointerdown', handlePointerDownActivation, true);
+          document.removeEventListener('pointerup', handlePointerUpActivation, true);
+        };
+
+        const handleUserActivation = (): void => {
+          if (hasUserInteracted) return;
+          hasUserInteracted = true;
+          removeAllActivationListeners();
+          playBackgroundMusic();
+        };
+
+        const handlePointerDownActivation = (event: PointerEvent): void => {
+          if (event.pointerType !== MOUSE_POINTER_TYPE) return;
+          handleUserActivation();
+        };
+
+        const handlePointerUpActivation = (event: PointerEvent): void => {
+          if (event.pointerType === MOUSE_POINTER_TYPE) return;
+          handleUserActivation();
+        };
+
+        const attachMusicToggleListener = (): void => {
+          if (!musicToggleButton || musicToggleButton.dataset.bound === 'true') return;
+          musicToggleButton.dataset.bound = 'true';
+          musicToggleButton.addEventListener('click', (event: MouseEvent) => {
+            event.stopPropagation();
+            if (!hasUserInteracted) {
+              hasUserInteracted = true;
+              removeAllActivationListeners();
+            }
+            if (isMusicPlaying) pauseBackgroundMusic();
+            else playBackgroundMusic();
+          });
+        };
+
+        const handleAstroPageLoad = (): void => {
+          bindMusicElements();
+          if (isMusicPlaying && musicToggleButton) {
+            musicToggleButton.classList.remove('is-playing');
+            void musicToggleButton.offsetWidth;
+            musicToggleButton.classList.add('is-playing');
+          }
+        };
+
+        ACTIVATION_EVENTS.forEach((eventName) => {
+          document.addEventListener(eventName, handleUserActivation, { capture: true, passive: true });
+        });
+        document.addEventListener('pointerdown', handlePointerDownActivation, { capture: true, passive: true });
+        document.addEventListener('pointerup', handlePointerUpActivation, { capture: true, passive: true });
+
+        bindMusicElements();
+        document.addEventListener('astro:page-load', handleAstroPageLoad);
+      }
+    </script>
   </body>
 </html>

@@ -5,7 +5,7 @@
 **A modular, cascade-layer-driven styling system built on Tailwind CSS v4.**
 
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Astro](https://img.shields.io/badge/Astro-5.x-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
+[![Astro](https://img.shields.io/badge/Astro-7.x-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](../../LICENSE)
 
 ---
@@ -47,7 +47,7 @@ The architecture is designed to be:
 
 ## Why Modular Architecture?
 
-In a monolithic CSS file, styles from different concerns compete for specificity, become difficult to trace, and create a maintenance nightmare as the project grows. This architecture solves that by using **CSS Cascade Layers** — a native browser feature that gives developers explicit control over which styles win, regardless of selector specificity or source order. [reference:0]
+In a monolithic CSS file, styles from different concerns compete for specificity, become difficult to trace, and create a maintenance nightmare as the project grows. This architecture solves that by using **CSS Cascade Layers** — a native browser feature that gives developers explicit control over which styles win, regardless of selector specificity or source order.
 
 By splitting the CSS into logical layers, we achieve:
 - **Predictable cascade behavior** — Layer order is declared once and never changes.
@@ -68,7 +68,7 @@ src/styles/
 ├── tokens.css          # Design tokens (@theme layer)
 ├── base.css            # Element resets and global typography
 ├── components.css      # Reusable UI component patterns
-└── animations.css      # @keyframes and motion utilities
+└── animations.css      # Animation delay utilities
 ```
 ---
 
@@ -79,7 +79,7 @@ src/styles/
 | `global.css` | Entry Point | Imports Tailwind and all custom layers in correct order. Contains only `@utility` definitions. | Only when adding a new global utility class. |
 | `tokens.css` | `@layer theme` | Single source of truth for all design tokens: colors, fonts, spacing scales. | When changing brand colors, fonts, or spacing values. |
 | `base.css` | `@layer base` | Element resets, default typography, scroll behavior, reduced-motion handling. | When changing default HTML element styles. |
-| `components.css` | `@layer components` | Reusable, overridable component patterns (e.g., `.social-icon`). | When building a new UI component or modifying an existing one. |
+| `components.css` | `@layer components` | Reusable, overridable component patterns (e.g., `.social-icon`, `.icon-button`). | When building or modifying a reusable UI component. |
 | `animations.css` | Global | Animation delay utilities. | When adding or modifying animation delays. |
 
 ---
@@ -137,7 +137,13 @@ All design tokens are defined in `tokens.css` inside the `@theme` block. This is
 |:---|:---|:---|
 | Primary colors | `--color-primary-*` | `--color-primary`, `--color-primary-dark` |
 | Neutral scale | `--color-neutral-*` | `--color-neutral-50` through `--color-neutral-950` |
+| Brand colors | `--color-brand-*` | `--color-brand-facebook`, `--color-brand-x` |
+| Gradient stops | `--color-music-*`, `--color-theme-*` | `--color-music-from`, `--color-theme-to` |
 | Typography | `--font-*` | `--font-sans` |
+| Spacing | `--spacing-*` | `--spacing-icon`, `--spacing-photo` |
+| Radius | `--radius-*` | `--radius-icon`, `--radius-pill` |
+| Shadows | `--shadow-*` | `--shadow-glow-music`, `--shadow-photo` |
+| Animations | `--animate-*` | `--animate-fade-in-up`, `--animate-profile-cycle` |
 
 To change the primary brand color across the entire site, modify **only** the value in `tokens.css`. Every component, utility, and animation that references the token will update automatically.
 
@@ -160,7 +166,7 @@ Follow this decision tree to determine where a new style belongs:
 This is a personal project and is not currently accepting external contributions. However, if you are the project owner:
 
 1. Create a feature branch: `git checkout -b style/feature-name`
-2. Make your changes following the [Usage Guidelines](#-usage-guidelines).
+2. Make your changes following the [Usage Guidelines](#usage-guidelines).
 3. Test in both light and dark mode.
 4. Verify no `!important` declarations were added.
 5. Submit a pull request with a clear description of the architectural change.

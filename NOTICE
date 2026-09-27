@@ -14,7 +14,7 @@ Copyright (c) Microsoft Corporation.
 Astro
 https://astro.build
 License: MIT License
-Copyright (c) Astro Contributors.
+Copyright (c) 2021 Fred K. Schott
 
 ---
 
@@ -27,4 +27,4 @@ Copyright (c) Tailwind Labs, Inc.
 
 Additional third-party dependencies are licensed under the MIT License.
 
-Full license texts are available in the THIRD-PARTY/ directory.
+Full license texts are available in the LICENSES/ directory.
