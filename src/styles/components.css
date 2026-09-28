@@ -33,15 +33,7 @@
     z-index: 0;
   }
 
-  .social-icon:hover {
-    transform: translateY(-6px) scale(1.06);
-    border-color: transparent;
-    color: var(--color-on-accent);
-    box-shadow: var(--shadow-glow);
-  }
-
-  .social-icon:hover::before { opacity: 1; }
-  .social-icon:active       { transform: translateY(-2px) scale(0.98); }
+  .social-icon:active { transform: translateY(-2px) scale(0.98); }
 
   .social-icon:focus-visible {
     outline: 2px solid var(--brand);
@@ -65,8 +57,6 @@
     display: block;
     transition: transform var(--duration-base) var(--ease-emphasized);
   }
-
-  .social-icon:hover .social-icon__inner svg { transform: scale(1.12); }
 
   .social-icon__tooltip {
     position: absolute;
@@ -99,7 +89,6 @@
     border-top-color: var(--color-tooltip-background);
   }
 
-  .social-icon:hover .social-icon__tooltip,
   .social-icon:focus-visible .social-icon__tooltip {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
@@ -154,12 +143,6 @@
       color        var(--duration-base) var(--ease-standard);
   }
 
-  .social-cta:hover {
-    transform: translateY(-6px) scale(1.04);
-    border-color: transparent;
-    box-shadow: var(--shadow-glow-gmail);
-  }
-
   .social-cta:active { transform: translateY(-2px) scale(0.98); }
 
   .social-cta:focus-visible {
@@ -183,8 +166,6 @@
     display: block;
   }
 
-  .social-cta:hover .social-cta__icon { transform: scale(1.12); }
-
   .social-cta__icon .gmail-green,
   .social-cta__icon .gmail-blue,
   .social-cta__icon .gmail-red,
@@ -193,12 +174,6 @@
     fill: currentColor;
     transition: fill var(--duration-base) var(--ease-standard);
   }
-
-  .social-cta:hover .social-cta__icon .gmail-green  { fill: var(--color-gmail-green); }
-  .social-cta:hover .social-cta__icon .gmail-blue   { fill: var(--color-gmail-blue); }
-  .social-cta:hover .social-cta__icon .gmail-red    { fill: var(--color-gmail-red); }
-  .social-cta:hover .social-cta__icon .gmail-dred   { fill: var(--color-gmail-red-deep); }
-  .social-cta:hover .social-cta__icon .gmail-yellow { fill: var(--color-gmail-yellow); }
 
   .social-cta__label { position: relative; z-index: 1; }
 
@@ -212,11 +187,6 @@
     transition:
       box-shadow var(--duration-base) var(--ease-standard),
       transform  var(--duration-base) var(--ease-emphasized);
-  }
-
-  .profile-photo:hover {
-    transform: scale(1.04);
-    box-shadow: var(--shadow-photo-hover);
   }
 
   .profile-photo__slide {
@@ -262,6 +232,20 @@
       border-color var(--duration-base) var(--ease-standard);
   }
 
+  .site-footer {
+    margin-top: 4rem;
+    padding: 1.5rem 0;
+    text-align: center;
+    font-size: 0.875rem;
+    background: var(--color-surface-container);
+    border-top: 1px solid var(--color-outline);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:
+      background   var(--duration-base) var(--ease-standard),
+      border-color var(--duration-base) var(--ease-standard);
+  }
+
   .site-navigation {
     width: 100%;
     max-width: 72rem;
@@ -296,20 +280,10 @@
       box-shadow var(--duration-fast) var(--ease-standard);
   }
 
-  .navigation-button:hover {
-    color: var(--color-on-surface);
-    background: var(--color-interactive);
-  }
-
   .navigation-button.is-active {
     background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
     color: var(--color-on-accent);
     box-shadow: 0 6px 18px -6px var(--color-music-accent-ring);
-  }
-
-  .navigation-button.is-active:hover {
-    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
-    color: var(--color-on-accent);
   }
 
   .navigation-button:focus-visible {
@@ -357,11 +331,6 @@
     transition:
       color      var(--duration-fast) var(--ease-standard),
       background var(--duration-fast) var(--ease-standard);
-  }
-
-  .icon-button:hover {
-    color: var(--color-on-surface);
-    background: var(--color-interactive);
   }
 
   .icon-button:focus-visible {
@@ -458,10 +427,6 @@
     transform: rotate(-90deg) scale(0.35);
   }
 
-  .theme-toggle-button:hover .theme-toggle-button__rays {
-    animation: spin 6s linear infinite;
-  }
-
   .dark .theme-toggle-button__sun {
     opacity: 0;
     transform: rotate(90deg) scale(0.35);
@@ -470,6 +435,61 @@
   .dark .theme-toggle-button__moon {
     opacity: 1;
     transform: rotate(0) scale(1);
+  }
+
+  @media (hover: hover) {
+    .social-icon:hover {
+      transform: translateY(-6px) scale(1.06);
+      border-color: transparent;
+      color: var(--color-on-accent);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .social-icon:hover::before { opacity: 1; }
+    .social-icon:hover .social-icon__inner svg { transform: scale(1.12); }
+
+    .social-icon:hover .social-icon__tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .social-cta:hover {
+      transform: translateY(-6px) scale(1.04);
+      border-color: transparent;
+      box-shadow: var(--shadow-glow-gmail);
+    }
+
+    .social-cta:hover .social-cta__icon { transform: scale(1.12); }
+
+    .social-cta:hover .social-cta__icon .gmail-green  { fill: var(--color-gmail-green); }
+    .social-cta:hover .social-cta__icon .gmail-blue   { fill: var(--color-gmail-blue); }
+    .social-cta:hover .social-cta__icon .gmail-red    { fill: var(--color-gmail-red); }
+    .social-cta:hover .social-cta__icon .gmail-dred   { fill: var(--color-gmail-red-deep); }
+    .social-cta:hover .social-cta__icon .gmail-yellow { fill: var(--color-gmail-yellow); }
+
+    .profile-photo:hover {
+      transform: scale(1.04);
+      box-shadow: var(--shadow-photo-hover);
+    }
+
+    .navigation-button:hover {
+      color: var(--color-on-surface);
+      background: var(--color-interactive);
+    }
+
+    .navigation-button.is-active:hover {
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+      color: var(--color-on-accent);
+    }
+
+    .icon-button:hover {
+      color: var(--color-on-surface);
+      background: var(--color-interactive);
+    }
+
+    .theme-toggle-button:hover .theme-toggle-button__rays {
+      animation: spin 6s linear infinite;
+    }
   }
 
   @media (max-width: 640px) {

@@ -115,7 +115,7 @@
 
 :root {
   --color-surface:           #eaeef7;
-  --color-surface-container: rgb(255 255 255 / 0.80);
+  --color-surface-container: rgb(234 238 247 / 0.60);
 
   --color-on-surface:        #0f172a;
   --color-on-surface-muted:  #64748b;
@@ -144,7 +144,7 @@
 
 .dark {
   --color-surface:           #080a12;
-  --color-surface-container: rgb(10 10 10 / 0.80);
+  --color-surface-container: rgb(8 10 18 / 0.60);
 
   --color-on-surface:        #f1f5f9;
   --color-on-surface-muted:  #94a3b8;
