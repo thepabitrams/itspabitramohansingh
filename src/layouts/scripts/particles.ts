@@ -3,8 +3,9 @@ export function initParticles(): void {
     const canvas = document.querySelector<HTMLCanvasElement>('.background-canvas');
     if (!canvas) return;
 
-    const context = canvas.getContext('2d');
-    if (!context) return;
+    const contextOrNull = canvas.getContext('2d');
+    if (!contextOrNull) return;
+    const context: CanvasRenderingContext2D = contextOrNull;
 
     const connectionDistance = 110;
     const speed = 0.8;
