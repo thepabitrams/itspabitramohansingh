@@ -2,22 +2,24 @@
 ---
 
 <button
-  class="icon-btn music-btn"
+  class="icon-button music-toggle-button"
   id="music-toggle"
   type="button"
   aria-label="Play music"
   aria-pressed="false"
 >
-  <svg class="icon-note" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+  <svg class="music-toggle-button__icon music-toggle-button__icon--note"
+       viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
     <path d="M9.5 17.5V6.2l9-1.9v11.2"/>
     <ellipse cx="6.8" cy="17.5" rx="2.7" ry="2.4"/>
     <ellipse cx="18.5" cy="15.5" rx="2.7" ry="2.4"/>
   </svg>
-  <svg class="icon-eq" viewBox="0 0 24 24">
-    <rect class="bar b1" x="3.2"  y="3" width="3.2" height="18" rx="1.6"/>
-    <rect class="bar b2" x="8.4"  y="3" width="3.2" height="18" rx="1.6"/>
-    <rect class="bar b3" x="13.6" y="3" width="3.2" height="18" rx="1.6"/>
-    <rect class="bar b4" x="18.8" y="3" width="3.2" height="18" rx="1.6"/>
+  <svg class="music-toggle-button__icon music-toggle-button__icon--equalizer"
+       viewBox="0 0 24 24" width="20" height="20">
+    <rect class="equalizer-bar" x="3.2"  y="3" width="3.2" height="18" rx="1.6"/>
+    <rect class="equalizer-bar" x="8.4"  y="3" width="3.2" height="18" rx="1.6"/>
+    <rect class="equalizer-bar" x="13.6" y="3" width="3.2" height="18" rx="1.6"/>
+    <rect class="equalizer-bar" x="18.8" y="3" width="3.2" height="18" rx="1.6"/>
   </svg>
 </button>

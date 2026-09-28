@@ -1,38 +1,36 @@
 ---
-import NavButton from './interactive/NavButton.astro';
+import NavigationButton from './interactive/NavigationButton.astro';
 import MusicToggle from './interactive/MusicToggle.astro';
 import ThemeToggle from './interactive/ThemeToggle.astro';
 
 const currentPath = Astro.url.pathname;
+const isHomeActive = currentPath === '/home';
+const isGuestbookActive = currentPath === '/guestbook';
 ---
 
 <header class="site-header">
-  <nav class="site-nav" aria-label="Main navigation">
-    <div class="site-nav-inner">
+  <nav class="site-navigation" aria-label="Main navigation">
+    <NavigationButton href="/home" label="Home" isActive={isHomeActive}>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3.4 10.4 12 3.6l8.6 6.8"/>
+        <path d="M5.8 9.4V19a1.8 1.8 0 0 0 1.8 1.8h8.8A1.8 1.8 0 0 0 18.2 19V9.4"/>
+        <path d="M9.8 20.8v-5h4.4v5"/>
+      </svg>
+    </NavigationButton>
 
-      <NavButton href="/home" label="Home" isActive={currentPath === '/home'}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3.4 10.4 12 3.6l8.6 6.8"/>
-          <path d="M5.8 9.4V19a1.8 1.8 0 0 0 1.8 1.8h8.8A1.8 1.8 0 0 0 18.2 19V9.4"/>
-          <path d="M9.8 20.8v-5h4.4v5"/>
-        </svg>
-      </NavButton>
+    <NavigationButton href="/guestbook" label="Guestbook" isActive={isGuestbookActive}>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="3.5" width="14" height="17" rx="2.2"/>
+        <path d="M9 3.5v17"/>
+        <path d="M12.6 8.5h3.4M12.6 12h2.4"/>
+      </svg>
+    </NavigationButton>
 
-      <NavButton href="/guestbook" label="Guestbook" isActive={currentPath === '/guestbook'}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-             stroke-linecap="round" stroke-linejoin="round">
-          <rect x="5" y="3.5" width="14" height="17" rx="2.2"/>
-          <path d="M9 3.5v17"/>
-          <path d="M12.6 8.5h3.4M12.6 12h2.4"/>
-        </svg>
-      </NavButton>
+    <span class="navigation-divider" aria-hidden="true"></span>
 
-      <span class="nav-divider" aria-hidden="true"></span>
-
-      <MusicToggle />
-      <ThemeToggle />
-
-    </div>
+    <MusicToggle />
+    <ThemeToggle />
   </nav>
 </header>

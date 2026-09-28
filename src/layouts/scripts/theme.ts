@@ -1,17 +1,17 @@
-let initialized = false;
+let isInitialized = false;
 
 function applyFromStorage(): void {
-  const stored = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const isDark = stored === 'dark' || (!stored && prefersDark);
+  const storedTheme = localStorage.getItem('theme');
+  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = storedTheme === 'dark' || (!storedTheme && prefersDarkMode);
   document.documentElement.classList.toggle('dark', isDark);
 }
 
 function bind(): void {
-  const btn = document.getElementById('theme-toggle');
-  if (!btn || btn.dataset.bound === 'true') return;
-  btn.dataset.bound = 'true';
-  btn.addEventListener('click', () => {
+  const toggleButton = document.getElementById('theme-toggle');
+  if (!toggleButton || toggleButton.dataset.bound === 'true') return;
+  toggleButton.dataset.bound = 'true';
+  toggleButton.addEventListener('click', () => {
     const isDark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
@@ -22,9 +22,10 @@ function onPageLoad(): void {
 }
 
 export function initTheme(): void {
-  if (initialized) return;
-  initialized = true;
+  if (isInitialized) return;
+  isInitialized = true;
   applyFromStorage();
   bind();
   document.addEventListener('astro:page-load', onPageLoad);
+  document.addEventListener('astro:after-swap', applyFromStorage);
 }

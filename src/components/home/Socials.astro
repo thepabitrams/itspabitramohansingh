@@ -32,16 +32,16 @@ const gmailSvg = `
 ---
 
 <div class="social-links">
-  {socialLinks.map((socialLink) => (
+  {socialLinks.map((link) => (
     <a
-      href={socialLink.href}
+      href={link.href}
       target="_blank"
       rel="noopener noreferrer"
-      class:list={['social-icon', `social-icon--${socialLink.modifier}`]}
-      aria-label={socialLink.platform}
+      class:list={['social-icon', `social-icon--${link.modifier}`]}
+      aria-label={link.platform}
     >
-      <span class="social-icon__tooltip">{socialLink.platform}</span>
-      <span class="social-icon__inner" set:html={socialLink.iconSvg} />
+      <span class="social-icon__tooltip">{link.platform}</span>
+      <span class="social-icon__inner" set:html={link.iconSvg} />
     </a>
   ))}
 

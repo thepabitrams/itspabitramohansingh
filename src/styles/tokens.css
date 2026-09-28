@@ -1,11 +1,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #1A73E8;
+  --color-primary:       #1A73E8;
   --color-primary-light: #4A90F0;
-  --color-primary-dark: #1557B0;
+  --color-primary-dark:  #1557B0;
 
-  --color-neutral-50: #F8F9FA;
+  --color-neutral-50:  #F8F9FA;
   --color-neutral-100: #F1F3F4;
   --color-neutral-200: #E8EAED;
   --color-neutral-300: #DADCE0;
@@ -19,92 +19,49 @@
 
   --font-sans: 'Inter', system-ui, sans-serif;
 
-  --spacing-icon: 46px;
-  --spacing-icon-compact: 42px;
-  --spacing-icon-inner: 22px;
+  --spacing-icon:               46px;
+  --spacing-icon-compact:       42px;
+  --spacing-icon-inner:         22px;
   --spacing-icon-inner-compact: 20px;
+  --spacing-photo:              320px;
+  --spacing-photo-compact:      240px;
 
-  --spacing-photo: 320px;
-  --spacing-photo-compact: 240px;
-
-  --radius-icon: 14px;
+  --radius-icon:    14px;
   --radius-tooltip: 8px;
-  --radius-pill: 9999px;
+  --radius-pill:    9999px;
 
-  --color-brand-facebook: #1877F2;
+  --color-brand-facebook:  #1877F2;
   --color-brand-instagram: #E4405F;
-  --color-brand-x: #000000;
+  --color-brand-x:         #000000;
 
-  --color-instagram-orange: #F09433;
-  --color-instagram-coral: #E6683C;
-  --color-instagram-red: #DC2743;
-  --color-instagram-pink: #CC2366;
+  --color-instagram-orange:  #F09433;
+  --color-instagram-coral:   #E6683C;
+  --color-instagram-red:     #DC2743;
+  --color-instagram-pink:    #CC2366;
   --color-instagram-magenta: #BC1888;
 
-  --color-gmail-red: #EA4335;
-  --color-gmail-blue: #4285F4;
-  --color-gmail-yellow: #FBBC04;
-  --color-gmail-green: #34A853;
+  --color-gmail-red:      #EA4335;
+  --color-gmail-blue:     #4285F4;
+  --color-gmail-yellow:   #FBBC04;
+  --color-gmail-green:    #34A853;
   --color-gmail-red-deep: #C62828;
 
-  --color-music-from: #7C3AED;
-  --color-music-to: #EC4899;
-  --color-theme-from: #F59E0B;
-  --color-theme-to: #6366F1;
+  --shadow-glow-facebook:  0 14px 28px -8px rgb(24 119 242 / 0.55);
+  --shadow-glow-instagram: 0 14px 28px -8px rgb(220 39 67 / 0.55);
+  --shadow-glow-x:         0 14px 28px -8px rgb(74 74 74 / 0.70);
+  --shadow-glow-gmail:     0 14px 28px -8px rgb(66 133 244 / 0.35);
 
-  --shadow-glow-facebook: 0 14px 28px -8px rgba(24, 119, 242, 0.55);
-  --shadow-glow-instagram: 0 14px 28px -8px rgba(220, 39, 67, 0.55);
-  --shadow-glow-x: 0 14px 28px -8px rgba(74, 74, 74, 0.70);
-  --shadow-glow-gmail: 0 14px 28px -8px rgba(66, 133, 244, 0.35);
-  --shadow-glow-music: 0 14px 28px -8px rgba(124, 58, 237, 0.55);
-  --shadow-glow-theme: 0 14px 28px -8px rgba(99, 102, 241, 0.50);
+  --shadow-photo:       0 20px 60px rgb(0 0 0 / 0.15), 0 0 0 4px rgb(26 115 232 / 0.20);
+  --shadow-photo-hover: 0 24px 70px rgb(0 0 0 / 0.20), 0 0 0 6px rgb(26 115 232 / 0.40);
 
-  --shadow-photo: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(26, 115, 232, 0.2);
-  --shadow-photo-hover: 0 24px 70px rgba(0, 0, 0, 0.2), 0 0 0 6px rgba(26, 115, 232, 0.4);
+  --color-icon-background:    rgb(127 127 127 / 0.08);
+  --color-icon-border:        rgb(127 127 127 / 0.18);
+  --color-tooltip-background: #0D1117;
 
-  --color-icon-bg: rgba(127, 127, 127, 0.08);
-  --color-icon-border: rgba(127, 127, 127, 0.18);
-  --color-tooltip-bg: #0D1117;
-
-  --animate-icon-pop: icon-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  --animate-fade-in-up: fade-in-up 0.45s ease-out both;
-  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
-  --animate-slide-in-left: slide-in-left 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+  --animate-slide-in-left:  slide-in-left 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
   --animate-slide-in-right: slide-in-right 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
-  --animate-slide-in-up: slide-in-up 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
-  --animate-profile-cycle: profile-cycle 28s linear infinite;
-
-  @keyframes icon-pop {
-    0% { transform: scale(1); }
-    40% { transform: scale(1.18); }
-    70% { transform: scale(0.96); }
-    100% { transform: scale(1); }
-  }
-
-  @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 14px 28px -8px var(--shadow-glow); }
-    50% { box-shadow: 0 18px 34px -6px var(--shadow-glow); }
-  }
-
-  @keyframes slide-in-left {
-    0% { transform: translateX(-60px); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
-  }
-
-  @keyframes slide-in-right {
-    0% { transform: translateX(60px); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
-  }
-
-  @keyframes slide-in-up {
-    0% { transform: translateY(40px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-  }
+  --animate-slide-in-up:    slide-in-up 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+  --animate-profile-cycle:  profile-cycle 28s linear infinite;
 
   @keyframes profile-cycle {
     0%      { opacity: 0; transform: scale(1); }
@@ -115,14 +72,85 @@
     100%    { opacity: 0; transform: scale(1); }
   }
 
-  @keyframes eq-bounce {
-    0%, 100% { transform: scaleY(0.3); }
-    50%      { transform: scaleY(1);   }
+  @keyframes slide-in-left {
+    0%   { transform: translateX(-60px); opacity: 0; }
+    100% { transform: translateX(0);     opacity: 1; }
   }
 
-  @keyframes ring-pulse {
-    0%   { box-shadow: var(--shadow-glow), 0 0 0 0 rgba(124, 58, 237, 0.40); }
-    70%  { box-shadow: var(--shadow-glow), 0 0 0 12px rgba(124, 58, 237, 0); }
-    100% { box-shadow: var(--shadow-glow), 0 0 0 0 rgba(124, 58, 237, 0); }
+  @keyframes slide-in-right {
+    0%   { transform: translateX(60px); opacity: 0; }
+    100% { transform: translateX(0);    opacity: 1; }
   }
+
+  @keyframes slide-in-up {
+    0%   { transform: translateY(40px); opacity: 0; }
+    100% { transform: translateY(0);    opacity: 1; }
+  }
+
+  @keyframes equalizer-pulse {
+    0%, 100% { transform: scaleY(0.3); }
+    50%      { transform: scaleY(1); }
+  }
+
+  @keyframes breathe-glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 0 rgb(59 130 246 / 0));
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      filter: drop-shadow(0 0 10px rgb(59 130 246 / 0.55));
+      transform: translateY(-1px) scale(1.04);
+    }
+  }
+
+  @keyframes halo-soft {
+    0%, 100% { transform: scale(0.9);  opacity: 0.4; }
+    50%      { transform: scale(1.15); opacity: 0.9; }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+}
+
+:root {
+  --color-surface:           #eaeef7;
+  --color-surface-container: rgb(255 255 255 / 0.80);
+
+  --color-on-surface:        #0f172a;
+  --color-on-surface-muted:  #64748b;
+
+  --color-outline:           rgb(15 23 42 / 0.10);
+  --color-outline-subtle:    rgb(15 23 42 / 0.06);
+
+  --color-interactive:       rgb(15 23 42 / 0.04);
+
+  --color-accent:            #3b82f6;
+  --color-accent-strong:     #2563eb;
+  --color-on-accent:         #ffffff;
+
+  --color-music-accent:      #3b82f6;
+  --color-music-accent-soft: rgb(59 130 246 / 0.08);
+  --color-music-accent-ring: rgb(59 130 246 / 0.55);
+
+  --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast:   0.25s;
+  --duration-base:   0.4s;
+  --duration-slow:   0.6s;
+  --duration-slower: 0.8s;
+}
+
+.dark {
+  --color-surface:           #080a12;
+  --color-surface-container: rgb(10 10 10 / 0.80);
+
+  --color-on-surface:        #f1f5f9;
+  --color-on-surface-muted:  #94a3b8;
+
+  --color-outline:           rgb(255 255 255 / 0.10);
+  --color-outline-subtle:    rgb(255 255 255 / 0.08);
+
+  --color-interactive:       rgb(255 255 255 / 0.05);
 }

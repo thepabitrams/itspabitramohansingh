@@ -5,18 +5,22 @@
   }
 
   body {
-    @apply bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100;
+    @apply text-neutral-900 dark:text-neutral-100;
+    background-color: var(--color-surface);
     font-family: 'Inter', system-ui, sans-serif;
+    transition:
+      background-color var(--duration-slower) var(--ease-standard),
+      color            var(--duration-slower) var(--ease-standard);
   }
 
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
+      animation-duration:        0.01ms !important;
+      animation-iteration-count: 1      !important;
+      transition-duration:       0.01ms !important;
+      scroll-behavior:           auto   !important;
     }
   }
 }

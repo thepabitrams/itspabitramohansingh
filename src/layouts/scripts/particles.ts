@@ -1,19 +1,18 @@
-export function initParticles() {
+export function initParticles(): void {
   setTimeout(() => {
-    const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
+    const canvas = document.querySelector<HTMLCanvasElement>('.background-canvas');
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    const connectionDistance = 110;
+    const speed = 0.8;
 
     let width = window.innerWidth;
     let height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
-
-    const connectionDistance = 110;
-    const speed = 0.8;
-    let particles: Particle[] = [];
 
     class Particle {
       x: number;
@@ -30,7 +29,7 @@ export function initParticles() {
         this.radius = Math.random() * 2 + 1.5;
       }
 
-      update() {
+      update(): void {
         this.x += this.vx;
         this.y += this.vy;
 
@@ -38,19 +37,20 @@ export function initParticles() {
         if (this.y < 0 || this.y > height) this.vy *= -1;
       }
 
-      draw(color: string) {
-        ctx!.beginPath();
-        ctx!.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx!.fillStyle = color;
-        ctx!.fill();
+      draw(color: string): void {
+        context.beginPath();
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        context.fillStyle = color;
+        context.fill();
       }
     }
 
-    function createParticles() {
+    let particles: Particle[] = [];
+
+    function createParticles(): void {
       particles = [];
       const screenArea = width * height;
-      let calculatedCount = Math.floor(screenArea * 0.00015);
-      const particleCount = Math.min(calculatedCount, 500);
+      const particleCount = Math.min(Math.floor(screenArea * 0.00015), 500);
 
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
@@ -59,37 +59,39 @@ export function initParticles() {
 
     createParticles();
 
-    function animate() {
-      ctx!.clearRect(0, 0, width, height);
+    function animate(): void {
+      context.clearRect(0, 0, width, height);
 
       const isDark = document.documentElement.classList.contains('dark');
-      const dotColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.5)';
-      const lineColor = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)';
+      const dotColor = isDark ? 'rgb(255 255 255 / 0.8)' : 'rgb(0 0 0 / 0.5)';
+      const lineColor = isDark ? 'rgb(255 255 255 / 0.15)' : 'rgb(0 0 0 / 0.1)';
 
-      particles.forEach(p => {
-        p.update();
-        p.draw(dotColor);
-      });
+      for (const particle of particles) {
+        particle.update();
+        particle.draw(dotColor);
+      }
 
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < connectionDistance) {
-            ctx!.beginPath();
-            ctx!.moveTo(particles[i].x, particles[i].y);
-            ctx!.lineTo(particles[j].x, particles[j].y);
-            ctx!.strokeStyle = lineColor;
-            ctx!.lineWidth = 1;
-            ctx!.stroke();
+          if (distance < connectionDistance) {
+            context.beginPath();
+            context.moveTo(particles[i].x, particles[i].y);
+            context.lineTo(particles[j].x, particles[j].y);
+            context.strokeStyle = lineColor;
+            context.lineWidth = 1;
+            context.stroke();
           }
         }
       }
+
+      requestAnimationFrame(animate);
     }
 
-    setInterval(animate, 1000 / 60);
+    requestAnimationFrame(animate);
 
     window.addEventListener('resize', () => {
       width = window.innerWidth;

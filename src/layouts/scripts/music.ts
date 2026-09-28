@@ -1,64 +1,60 @@
-let bgPlayer: HTMLAudioElement | null = null;
-let toggleBtn: HTMLElement | null = null;
+let backgroundPlayer: HTMLAudioElement | null = null;
+let toggleButton: HTMLElement | null = null;
 let hasUserInteracted = false;
 let isMusicPlaying = false;
-let initialized = false;
+let isInitialized = false;
 
-const ACTIVATION_EVENTS = ['click', 'keydown', 'touchend', 'mousedown'] as const;
-const MOUSE_POINTER_TYPE = 'mouse';
+const ACTIVATION_EVENTS = ['pointerdown', 'keydown', 'click'] as const;
 
 function bind(): void {
-  bgPlayer = document.getElementById('bg-music') as HTMLAudioElement | null;
-  toggleBtn = document.getElementById('music-toggle');
-  if (bgPlayer && toggleBtn) attachToggleListener();
+  backgroundPlayer = document.getElementById('background-music') as HTMLAudioElement | null;
+  toggleButton = document.getElementById('music-toggle');
+  if (backgroundPlayer && toggleButton) attachToggleListener();
 }
 
-function reflect(playing: boolean): void {
+function syncButtonState(playing: boolean): void {
   isMusicPlaying = playing;
-  toggleBtn?.classList.toggle('is-playing', playing);
-  toggleBtn?.setAttribute('aria-pressed', String(playing));
-  toggleBtn?.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+  toggleButton?.classList.toggle('is-playing', playing);
+  toggleButton?.setAttribute('aria-pressed', String(playing));
+  toggleButton?.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
 }
 
 function play(): void {
-  bgPlayer?.play().then(() => reflect(true)).catch(() => reflect(false));
+  backgroundPlayer?.play()
+    .then(() => syncButtonState(true))
+    .catch(() => syncButtonState(false));
 }
 
 function pause(): void {
-  bgPlayer?.pause();
-  reflect(false);
+  backgroundPlayer?.pause();
+  syncButtonState(false);
 }
 
 function removeActivationListeners(): void {
-  ACTIVATION_EVENTS.forEach((e) =>
-    document.removeEventListener(e, onUserActivation, true)
-  );
-  document.removeEventListener('pointerdown', onPointerDown, true);
-  document.removeEventListener('pointerup', onPointerUp, true);
+  for (const eventName of ACTIVATION_EVENTS) {
+    document.removeEventListener(eventName, onUserActivation, true);
+  }
 }
 
-function onUserActivation(): void {
+function isToggleButtonEvent(event: Event): boolean {
+  if (!toggleButton) return false;
+  const target = event.target;
+  return target instanceof Node && toggleButton.contains(target);
+}
+
+function onUserActivation(event: Event): void {
   if (hasUserInteracted) return;
+  if (isToggleButtonEvent(event)) return;
   hasUserInteracted = true;
   removeActivationListeners();
   play();
 }
 
-function onPointerDown(e: PointerEvent): void {
-  if (e.pointerType !== MOUSE_POINTER_TYPE) return;
-  onUserActivation();
-}
-
-function onPointerUp(e: PointerEvent): void {
-  if (e.pointerType === MOUSE_POINTER_TYPE) return;
-  onUserActivation();
-}
-
 function attachToggleListener(): void {
-  if (!toggleBtn || toggleBtn.dataset.bound === 'true') return;
-  toggleBtn.dataset.bound = 'true';
-  toggleBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
+  if (!toggleButton || toggleButton.dataset.bound === 'true') return;
+  toggleButton.dataset.bound = 'true';
+  toggleButton.addEventListener('click', (event) => {
+    event.stopPropagation();
     if (!hasUserInteracted) {
       hasUserInteracted = true;
       removeActivationListeners();
@@ -69,22 +65,20 @@ function attachToggleListener(): void {
 
 function onPageLoad(): void {
   bind();
-  if (isMusicPlaying && toggleBtn) {
-    toggleBtn.classList.remove('is-playing');
-    void toggleBtn.offsetWidth;
-    toggleBtn.classList.add('is-playing');
+  if (isMusicPlaying && toggleButton) {
+    toggleButton.classList.remove('is-playing');
+    void toggleButton.offsetWidth;
+    toggleButton.classList.add('is-playing');
   }
 }
 
 export function initMusic(): void {
-  if (initialized) return;
-  initialized = true;
+  if (isInitialized) return;
+  isInitialized = true;
 
-  ACTIVATION_EVENTS.forEach((e) =>
-    document.addEventListener(e, onUserActivation, { capture: true, passive: true })
-  );
-  document.addEventListener('pointerdown', onPointerDown, { capture: true, passive: true });
-  document.addEventListener('pointerup', onPointerUp, { capture: true, passive: true });
+  for (const eventName of ACTIVATION_EVENTS) {
+    document.addEventListener(eventName, onUserActivation, { capture: true, passive: true });
+  }
 
   bind();
   document.addEventListener('astro:page-load', onPageLoad);

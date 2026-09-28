@@ -9,9 +9,9 @@ const { href, label, isActive = false } = Astro.props;
 
 <a
   href={href}
-  class:list={['nav-btn', { 'is-active': isActive }]}
+  class:list={['navigation-button', { 'is-active': isActive }]}
   aria-current={isActive ? 'page' : undefined}
 >
-  <span class="icon-wrap"><slot /></span>
+  <span class="navigation-button__icon"><slot /></span>
   <span>{label}</span>
 </a>

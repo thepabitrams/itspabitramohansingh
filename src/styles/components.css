@@ -1,12 +1,13 @@
 @layer components {
-  :is(.social-icon, .icon-button) {
+
+  .social-icon {
     position: relative;
     width: var(--spacing-icon);
     height: var(--spacing-icon);
     display: grid;
     place-items: center;
     border-radius: var(--radius-icon);
-    background: var(--color-icon-bg);
+    background: var(--color-icon-background);
     border: 1px solid var(--color-icon-border);
     color: inherit;
     cursor: pointer;
@@ -14,41 +15,40 @@
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
     transition:
-      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-      background 0.35s ease,
-      border-color 0.35s ease,
-      box-shadow 0.35s ease,
-      color 0.35s ease;
+      transform    var(--duration-base) var(--ease-emphasized),
+      background   var(--duration-base) var(--ease-standard),
+      border-color var(--duration-base) var(--ease-standard),
+      box-shadow   var(--duration-base) var(--ease-standard),
+      color        var(--duration-base) var(--ease-standard);
   }
 
-  :is(.social-icon, .icon-button)::before {
+  .social-icon::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
     background: var(--brand);
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity var(--duration-base) var(--ease-standard);
     z-index: 0;
   }
 
-  :is(.social-icon, .icon-button):hover {
+  .social-icon:hover {
     transform: translateY(-6px) scale(1.06);
     border-color: transparent;
-    color: #fff;
+    color: var(--color-on-accent);
     box-shadow: var(--shadow-glow);
   }
 
-  :is(.social-icon, .icon-button):hover::before { opacity: 1; }
+  .social-icon:hover::before { opacity: 1; }
+  .social-icon:active       { transform: translateY(-2px) scale(0.98); }
 
-  :is(.social-icon, .icon-button):active { transform: translateY(-2px) scale(0.98); }
-
-  :is(.social-icon, .icon-button):focus-visible {
+  .social-icon:focus-visible {
     outline: 2px solid var(--brand);
     outline-offset: 3px;
   }
 
-  :is(.social-icon__inner, .icon-button__inner) {
+  .social-icon__inner {
     position: relative;
     z-index: 1;
     width: var(--spacing-icon-inner);
@@ -57,26 +57,24 @@
     place-items: center;
   }
 
-  :is(.social-icon__inner, .icon-button__inner) svg {
+  .social-icon__inner svg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     display: block;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform var(--duration-base) var(--ease-emphasized);
   }
 
-  :is(.social-icon, .icon-button):hover :is(.social-icon__inner, .icon-button__inner) svg {
-    transform: scale(1.12);
-  }
+  .social-icon:hover .social-icon__inner svg { transform: scale(1.12); }
 
-  :is(.social-icon__tooltip, .icon-button__tooltip) {
+  .social-icon__tooltip {
     position: absolute;
     bottom: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%) translateY(6px);
-    background: var(--color-tooltip-bg);
-    color: #fff;
+    background: var(--color-tooltip-background);
+    color: var(--color-on-accent);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.4px;
@@ -85,28 +83,30 @@
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    transition:
+      opacity   var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard);
     z-index: 5;
   }
 
-  :is(.social-icon__tooltip, .icon-button__tooltip)::after {
+  .social-icon__tooltip::after {
     content: '';
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
     border: 5px solid transparent;
-    border-top-color: var(--color-tooltip-bg);
+    border-top-color: var(--color-tooltip-background);
   }
 
-  :is(.social-icon, .icon-button):hover :is(.social-icon__tooltip, .icon-button__tooltip),
-  :is(.social-icon, .icon-button):focus-visible :is(.social-icon__tooltip, .icon-button__tooltip) {
+  .social-icon:hover .social-icon__tooltip,
+  .social-icon:focus-visible .social-icon__tooltip {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
 
   .social-icon--facebook {
-    --brand: var(--color-brand-facebook);
+    --brand:       var(--color-brand-facebook);
     --shadow-glow: var(--shadow-glow-facebook);
   }
 
@@ -123,103 +123,9 @@
   }
 
   .social-icon--x {
-    --brand: var(--color-brand-x);
+    --brand:       var(--color-brand-x);
     --shadow-glow: var(--shadow-glow-x);
   }
-
-  .icon-button {
-    border-radius: 50%;
-  }
-
-  .icon-button--music {
-    --brand: linear-gradient(135deg, var(--color-music-from), var(--color-music-to));
-    --shadow-glow: var(--shadow-glow-music);
-  }
-
-  .icon-button--theme {
-    --brand: linear-gradient(135deg, var(--color-theme-from), var(--color-theme-to));
-    --shadow-glow: var(--shadow-glow-theme);
-  }
-
-  .icon-button--music .icon--note {
-    opacity: 1;
-    transform: scale(1);
-    transition:
-      opacity 0.25s ease,
-      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .icon-button--music .eq {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5px;
-    opacity: 0;
-    transform: scale(0.6);
-    transition:
-      opacity 0.25s ease,
-      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .icon-button--music .eq i {
-    display: block;
-    width: 3px;
-    height: 16px;
-    border-radius: 2px;
-    background: currentColor;
-    transform: scaleY(0.3);
-    transform-origin: center;
-    animation: eq-bounce 1s ease-in-out infinite;
-    animation-play-state: paused;
-  }
-
-  .icon-button--music .eq i:nth-child(1) { animation-delay: 0s; }
-  .icon-button--music .eq i:nth-child(2) { animation-delay: 0.35s; }
-  .icon-button--music .eq i:nth-child(3) { animation-delay: 0.15s; }
-  .icon-button--music .eq i:nth-child(4) { animation-delay: 0.5s; }
-
-  .icon-button--music.is-playing {
-    border-color: transparent;
-    color: #fff;
-    box-shadow: var(--shadow-glow);
-    animation: ring-pulse 2s ease-out infinite;
-  }
-
-  .icon-button--music.is-playing::before { opacity: 1; }
-
-  .icon-button--music.is-playing .icon--note {
-    opacity: 0;
-    transform: scale(0.4) rotate(-30deg);
-  }
-
-  .icon-button--music.is-playing .eq {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .icon-button--music.is-playing .eq i { animation-play-state: running; }
-
-  .icon-button--theme .icon-button__inner {
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .icon-button--theme:hover .icon-button__inner {
-    transform: rotate(90deg);
-  }
-
-  .icon-button--theme .icon {
-    transition:
-      opacity 0.3s ease,
-      transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .icon-button--theme .icon--sun  { opacity: 0; transform: rotate(90deg)  scale(0.4); }
-  .icon-button--theme .icon--moon { opacity: 1; transform: rotate(0deg)   scale(1);   }
-
-  html.dark .icon-button--theme .icon--sun  { opacity: 1; transform: rotate(0deg)   scale(1);   }
-  html.dark .icon-button--theme .icon--moon { opacity: 0; transform: rotate(-90deg) scale(0.4); }
 
   .social-cta {
     position: relative;
@@ -229,7 +135,7 @@
     gap: 10px;
     padding: 0 22px 0 16px;
     border-radius: var(--radius-pill);
-    background: var(--color-icon-bg);
+    background: var(--color-icon-background);
     border: 1px solid var(--color-icon-border);
     color: inherit;
     cursor: pointer;
@@ -241,11 +147,11 @@
     white-space: nowrap;
     -webkit-tap-highlight-color: transparent;
     transition:
-      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-      background 0.35s ease,
-      border-color 0.35s ease,
-      box-shadow 0.35s ease,
-      color 0.35s ease;
+      transform    var(--duration-base) var(--ease-emphasized),
+      background   var(--duration-base) var(--ease-standard),
+      border-color var(--duration-base) var(--ease-standard),
+      box-shadow   var(--duration-base) var(--ease-standard),
+      color        var(--duration-base) var(--ease-standard);
   }
 
   .social-cta:hover {
@@ -268,7 +174,7 @@
     height: var(--spacing-icon-inner);
     display: grid;
     place-items: center;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform var(--duration-base) var(--ease-emphasized);
   }
 
   .social-cta__icon svg {
@@ -285,7 +191,7 @@
   .social-cta__icon .gmail-dred,
   .social-cta__icon .gmail-yellow {
     fill: currentColor;
-    transition: fill 0.35s ease;
+    transition: fill var(--duration-base) var(--ease-standard);
   }
 
   .social-cta:hover .social-cta__icon .gmail-green  { fill: var(--color-gmail-green); }
@@ -294,29 +200,7 @@
   .social-cta:hover .social-cta__icon .gmail-dred   { fill: var(--color-gmail-red-deep); }
   .social-cta:hover .social-cta__icon .gmail-yellow { fill: var(--color-gmail-yellow); }
 
-  .social-cta__label {
-    position: relative;
-    z-index: 1;
-  }
-
-  @media (max-width: 480px) {
-    :is(.social-icon, .icon-button) {
-      width: var(--spacing-icon-compact);
-      height: var(--spacing-icon-compact);
-    }
-    :is(.social-icon__inner, .icon-button__inner) {
-      width: var(--spacing-icon-inner-compact);
-      height: var(--spacing-icon-inner-compact);
-    }
-    .social-cta {
-      padding: 0 18px 0 12px;
-      font-size: 13px;
-    }
-    .social-cta__icon {
-      width: var(--spacing-icon-inner-compact);
-      height: var(--spacing-icon-inner-compact);
-    }
-  }
+  .social-cta__label { position: relative; z-index: 1; }
 
   .profile-photo {
     position: relative;
@@ -325,7 +209,9 @@
     border-radius: 50%;
     overflow: hidden;
     box-shadow: var(--shadow-photo);
-    transition: box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition:
+      box-shadow var(--duration-base) var(--ease-standard),
+      transform  var(--duration-base) var(--ease-emphasized);
   }
 
   .profile-photo:hover {
@@ -353,7 +239,288 @@
   .profile-photo__slide:nth-child(6) { animation-delay: 20s; }
   .profile-photo__slide:nth-child(7) { animation-delay: 24s; }
 
+  .background-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-surface-container);
+    border-bottom: 1px solid var(--color-outline-subtle);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:
+      background   var(--duration-base) var(--ease-standard),
+      border-color var(--duration-base) var(--ease-standard);
+  }
+
+  .site-navigation {
+    width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .navigation-button {
+    position: relative;
+    height: 44px;
+    padding: 0 18px 0 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--color-on-surface-muted);
+    cursor: pointer;
+    text-decoration: none;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color      var(--duration-fast) var(--ease-standard),
+      background var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  .navigation-button:hover {
+    color: var(--color-on-surface);
+    background: var(--color-interactive);
+  }
+
+  .navigation-button.is-active {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+    color: var(--color-on-accent);
+    box-shadow: 0 6px 18px -6px var(--color-music-accent-ring);
+  }
+
+  .navigation-button.is-active:hover {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+    color: var(--color-on-accent);
+  }
+
+  .navigation-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .navigation-button__icon {
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+  }
+
+  .navigation-button__icon > svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .navigation-divider {
+    width: 1px;
+    height: 22px;
+    background: var(--color-outline);
+    margin: 0 8px;
+    flex: 0 0 auto;
+  }
+
+  .icon-button {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--color-on-surface-muted);
+    cursor: pointer;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color      var(--duration-fast) var(--ease-standard),
+      background var(--duration-fast) var(--ease-standard);
+  }
+
+  .icon-button:hover {
+    color: var(--color-on-surface);
+    background: var(--color-interactive);
+  }
+
+  .icon-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .icon-button > svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+
+  .music-toggle-button { overflow: visible; }
+
+  .music-toggle-button__icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    transition:
+      opacity   var(--duration-base) var(--ease-standard),
+      transform var(--duration-base) var(--ease-emphasized);
+  }
+
+  .music-toggle-button__icon--equalizer {
+    opacity: 0;
+    transform: scale(0.5);
+    overflow: visible;
+  }
+
+  .music-toggle-button.is-playing .music-toggle-button__icon--note {
+    opacity: 0;
+    transform: scale(0.4) rotate(-25deg);
+  }
+
+  .music-toggle-button.is-playing .music-toggle-button__icon--equalizer {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .music-toggle-button__icon--equalizer .equalizer-bar {
+    fill: currentColor;
+    transform-box: fill-box;
+    transform-origin: center center;
+    transform: scaleY(0.3);
+  }
+
+  .music-toggle-button.is-playing .equalizer-bar:nth-child(1) { animation: equalizer-pulse 0.82s ease-in-out infinite; }
+  .music-toggle-button.is-playing .equalizer-bar:nth-child(2) { animation: equalizer-pulse 0.58s ease-in-out infinite; }
+  .music-toggle-button.is-playing .equalizer-bar:nth-child(3) { animation: equalizer-pulse 0.95s ease-in-out infinite; }
+  .music-toggle-button.is-playing .equalizer-bar:nth-child(4) { animation: equalizer-pulse 0.68s ease-in-out infinite; }
+
+  .music-toggle-button.is-playing {
+    color: var(--color-music-accent);
+    background: var(--color-music-accent-soft);
+    animation: breathe-glow 2.2s ease-in-out infinite;
+  }
+
+  .music-toggle-button::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      var(--color-music-accent-ring) 0%,
+      transparent 68%
+    );
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity var(--duration-base) var(--ease-standard);
+  }
+
+  .music-toggle-button.is-playing::before {
+    opacity: 0.7;
+    animation: halo-soft 2.2s ease-in-out infinite;
+  }
+
+  .theme-toggle-button__sun,
+  .theme-toggle-button__moon,
+  .theme-toggle-button__rays {
+    transform-box: view-box;
+    transform-origin: center;
+    transition:
+      transform 0.55s cubic-bezier(0.34, 1.4, 0.5, 1),
+      opacity   var(--duration-base) var(--ease-standard);
+  }
+
+  .theme-toggle-button__moon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.35);
+  }
+
+  .theme-toggle-button:hover .theme-toggle-button__rays {
+    animation: spin 6s linear infinite;
+  }
+
+  .dark .theme-toggle-button__sun {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.35);
+  }
+
+  .dark .theme-toggle-button__moon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  @media (max-width: 640px) {
+    .site-navigation { padding: 10px 16px; gap: 4px; }
+
+    .navigation-button {
+      height: 40px;
+      padding: 0 14px 0 10px;
+      font-size: 13px;
+      gap: 7px;
+      border-radius: 12px;
+    }
+
+    .navigation-button__icon { width: 18px; height: 18px; }
+
+    .icon-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+    }
+
+    .icon-button > svg,
+    .music-toggle-button__icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .navigation-divider { margin: 0 4px; }
+  }
+
   @media (max-width: 480px) {
+    .social-icon {
+      width: var(--spacing-icon-compact);
+      height: var(--spacing-icon-compact);
+    }
+
+    .social-icon__inner {
+      width: var(--spacing-icon-inner-compact);
+      height: var(--spacing-icon-inner-compact);
+    }
+
+    .social-cta {
+      padding: 0 18px 0 12px;
+      font-size: 13px;
+    }
+
+    .social-cta__icon {
+      width: var(--spacing-icon-inner-compact);
+      height: var(--spacing-icon-inner-compact);
+    }
+
     .profile-photo {
       width: var(--spacing-photo-compact);
       height: var(--spacing-photo-compact);
@@ -361,23 +528,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .profile-photo__slide {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      animation: var(--animate-profile-cycle);
-      will-change: opacity, transform;
-      backface-visibility: hidden;
-    }
-    .profile-photo__slide:first-child {
-      opacity: 1;
-    }
+    .profile-photo__slide:first-child { opacity: 1; }
     .profile-photo,
-    .profile-photo:hover {
-      transform: none;
-    }
+    .profile-photo:hover { transform: none; }
   }
 }
