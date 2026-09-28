@@ -1,0 +1,17 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  isActive?: boolean;
+}
+const { href, label, isActive = false } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['nav-btn', { 'is-active': isActive }]}
+  aria-current={isActive ? 'page' : undefined}
+>
+  <span class="icon-wrap"><slot /></span>
+  <span>{label}</span>
+</a>
