@@ -28,12 +28,16 @@ const { title, description } = Astro.props;
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (stored === 'dark' || (!stored && prefersDark)) {
         document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
       }
     </script>
 
     <ClientRouter />
   </head>
   <body>
+    <canvas id="bg-canvas" transition:persist></canvas>
+
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white dark:bg-neutral-900 p-4 z-50 rounded-lg shadow-lg">
       Skip to main content
     </a>
@@ -57,9 +61,27 @@ const { title, description } = Astro.props;
     <script>
       import { initMusic } from './scripts/music';
       import { initTheme } from './scripts/theme';
+      import { initParticles } from './scripts/particles';
+
+      function applyTheme() {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
 
       initMusic();
       initTheme();
+      initParticles();
+
+      applyTheme();
+
+      document.addEventListener('astro:after-swap', () => {
+        applyTheme();
+      });
     </script>
   </body>
 </html>
