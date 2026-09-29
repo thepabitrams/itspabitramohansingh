@@ -1,0 +1,21 @@
+---
+import Card from './ui/Card.astro';
+import Icon from './ui/Icon.astro';
+---
+<Card variant="flat" padding="none" class="h-110 max-md:h-100 max-[520px]:h-95">
+  <section id="detail" aria-live="polite" aria-busy="false" class="flex flex-col h-full min-h-0">
+    <div class="flex-1 grid place-items-center px-6 py-10 text-center">
+      <div>
+        <Icon name="message" class="w-7 h-7 text-neutral-400 dark:text-neutral-500 mx-auto mb-3 block" />
+        <p class="text-[13.5px] text-neutral-400 dark:text-neutral-500 max-w-[34ch] m-0">
+          Tap a visitor on the left to read their message.
+        </p>
+      </div>
+    </div>
+  </section>
+</Card>
+
+<script>
+  import { setupDetailPanel } from '../scripts/detail-panel';
+  setupDetailPanel();
+</script>

@@ -1,0 +1,40 @@
+---
+interface Props {
+  name: string;
+  picture?: string | null;
+  size?: 'sm' | 'md' | 'xl';
+}
+
+const { name, picture, size = 'md' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'w-7 h-7 text-[10px]',
+  md: 'w-9 h-9 text-[11px]',
+  xl: 'w-[76px] h-[76px] text-[22px]',
+};
+
+function initials(n: string) {
+  const parts = n.trim().split(/\s+/);
+  if (!parts[0]) return '?';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+const HUES = [210, 160, 28, 340, 280, 190, 130, 250, 12, 300];
+function hueFor(n: string) {
+  let h = 0;
+  for (let i = 0; i < n.length; i++) h = n.charCodeAt(i) + ((h << 5) - h);
+  return HUES[Math.abs(h) % HUES.length];
+}
+
+const h = hueFor(name);
+const inlineStyle = `background:hsl(${h} 32% 92%);color:hsl(${h} 32% 34%)`;
+---
+
+<span
+  class={`shrink-0 grid place-items-center rounded-full overflow-hidden select-none font-semibold tracking-wide ${sizeClasses[size]}`}
+  style={picture ? undefined : inlineStyle}
+  aria-hidden="true"
+>
+  { picture ? <img src={picture} alt="" class="w-full h-full object-cover" /> : initials(name) }
+</span>

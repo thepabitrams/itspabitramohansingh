@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "itspabitramohansingh",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "guestbook-db",
+      "database_id": "cb4a1d66-07d1-424e-827f-83f09fddd5d4",
+      "migrations_dir": "./migrations"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  }
+}

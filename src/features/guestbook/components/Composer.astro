@@ -1,0 +1,29 @@
+---
+import Card from './ui/Card.astro';
+import Button from './ui/Button.astro';
+---
+<Card
+  variant="flat"
+  padding="none"
+  class="focus-within:border-neutral-300 dark:focus-within:border-neutral-700 transition-colors"
+>
+  <form id="composer" class="px-5 pt-4.5 pb-3.5">
+    <div class="flex gap-3 items-start">
+      <span id="composerAva" class="shrink-0 grid place-items-center rounded-full w-9 h-9 text-[11px] font-semibold tracking-wide select-none bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300" aria-hidden="true">Y</span>
+      <label for="entryText" class="sr-only">Your message</label>
+      <textarea id="entryText" rows="2" maxlength="500" placeholder="Write something…" class="flex-1 min-h-13 max-h-50 border-0 outline-0 resize-none bg-transparent text-[14.5px] leading-[1.6] pt-1.75 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"></textarea>
+    </div>
+    <div class="flex items-center justify-between gap-3 mt-3 pt-3.5 border-t border-neutral-200 dark:border-neutral-800">
+      <span id="counter" class="font-mono text-[11.5px] tabular-nums text-neutral-400">0 / 500</span>
+      <div class="flex items-center gap-1.5">
+        <Button variant="ghost" size="sm" id="signOutBtn">Sign out</Button>
+        <Button variant="dark" size="sm" type="submit" id="postBtn" disabled>Post</Button>
+      </div>
+    </div>
+  </form>
+</Card>
+
+<script>
+  import { setupComposer } from '../scripts/composer';
+  setupComposer();
+</script>

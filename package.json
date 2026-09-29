@@ -6,16 +6,23 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro build && wrangler dev --persist-to=.wrangler/state --ip localhost",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "astro build && wrangler dev --persist-to=.wrangler/state --ip localhost",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.3.4"
+    "@astrojs/cloudflare": "^14.3.3",
+    "astro": "^7.3.4",
+    "better-auth": "^1.7.6",
+    "drizzle-orm": "^0.45.3",
+    "wrangler": "^4.143.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260928.1",
     "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.3",
+    "drizzle-kit": "^0.31.11",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2"
   },

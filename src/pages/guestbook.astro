@@ -1,18 +1,40 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SignInBar from '../features/guestbook/components/SignInBar.astro';
+import Composer from '../features/guestbook/components/Composer.astro';
+import VisitorGrid from '../features/guestbook/components/VisitorGrid.astro';
+import DetailPanel from '../features/guestbook/components/DetailPanel.astro';
+import SignInModal from '../features/guestbook/components/SignInModal.astro';
+import Toaster from '../features/guestbook/components/Toaster.astro';
 ---
 
-<BaseLayout title="Guestbook" description="Sign the guestbook.">
-  <section class="max-w-3xl mx-auto px-4 sm:px-6 py-20">
-    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Guestbook</h1>
-    <p class="text-neutral-800 dark:text-neutral-300 mb-10">
-      Leave a message. This is a demo page for now — the form and storage will come later.
-    </p>
-
-    <div class="rounded-2xl border border-neutral-400 dark:border-neutral-500 p-6">
-      <p class="text-neutral-700 dark:text-neutral-300 text-sm">
-        Guestbook entries will appear here once the backend is wired up.
+<BaseLayout title="Guestbook">
+  <main class="max-w-[960px] mx-auto px-6 pb-[72px] text-[15px] leading-[1.55] text-neutral-900 dark:text-neutral-100 max-[520px]:px-[18px] max-[520px]:pb-12">
+    <header class="pt-14 pb-8 max-[520px]:pt-10 max-[520px]:pb-[26px]">
+      <h1 class="text-[26px] font-semibold tracking-tight m-0 max-[520px]:text-[22px]">Guestbook</h1>
+      <p class="mt-1.5 text-[14.5px] text-neutral-500 dark:text-neutral-400 m-0">
+        Leave a note — then tap any visitor to read what they wrote.
       </p>
-    </div>
-  </section>
+    </header>
+
+    <section class="mb-8" aria-label="Write an entry">
+      <SignInBar />
+      <Composer />
+    </section>
+
+    <hr class="border-0 h-px bg-neutral-200 dark:bg-neutral-800 mb-7" />
+
+    <section class="grid grid-cols-[320px_1fr] gap-5 max-md:grid-cols-1" aria-label="Visitors and messages">
+      <VisitorGrid />
+      <DetailPanel />
+    </section>
+  </main>
+
+  <SignInModal />
+  <Toaster />
+
+  <script>
+    import { initGuestbook } from '../features/guestbook/scripts/orchestrator';
+    initGuestbook();
+  </script>
 </BaseLayout>

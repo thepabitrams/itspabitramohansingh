@@ -1,0 +1,20 @@
+---
+import Card from './ui/Card.astro';
+import Button from './ui/Button.astro';
+---
+<Card
+  variant="flat"
+  padding="bar"
+  id="lockBar"
+  class="max-[520px]:flex max-[520px]:flex-col max-[520px]:items-stretch max-[520px]:gap-3 flex items-center justify-between gap-4"
+>
+  <p class="text-[14.5px] text-neutral-600 dark:text-neutral-400 m-0">
+    <strong class="text-neutral-900 dark:text-white font-semibold">Sign in</strong> to leave a message
+  </p>
+  <Button id="signInBtn" class="max-[520px]:w-full">Sign in</Button>
+</Card>
+
+<script>
+  import { setupSignInBar } from '../scripts/signin-bar';
+  setupSignInBar();
+</script>
