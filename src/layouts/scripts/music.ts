@@ -1,15 +1,17 @@
+const ACTIVATION_EVENTS = ['touchend', 'click'] as const;
+
 let backgroundPlayer: HTMLAudioElement | null = null;
 let toggleButton: HTMLElement | null = null;
-let hasUserInteracted = false;
 let isMusicPlaying = false;
 let isInitialized = false;
-
-const ACTIVATION_EVENTS = ['pointerdown', 'keydown', 'click'] as const;
+let playInFlight = false;
 
 function bind(): void {
   backgroundPlayer = document.getElementById('background-music') as HTMLAudioElement | null;
   toggleButton = document.getElementById('music-toggle');
-  if (backgroundPlayer && toggleButton) attachToggleListener();
+  if (backgroundPlayer && toggleButton) {
+    attachToggleListener();
+  }
 }
 
 function syncButtonState(playing: boolean): void {
@@ -19,10 +21,32 @@ function syncButtonState(playing: boolean): void {
   toggleButton?.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
 }
 
-function play(): void {
-  backgroundPlayer?.play()
-    .then(() => syncButtonState(true))
-    .catch(() => syncButtonState(false));
+function tryPlay(): void {
+  if (!backgroundPlayer || playInFlight) return;
+  playInFlight = true;
+
+  backgroundPlayer.muted = false;
+
+  const playPromise = backgroundPlayer.play();
+
+  if (!playPromise || typeof playPromise.then !== 'function') {
+    playInFlight = false;
+    syncButtonState(true);
+    removeActivationListeners();
+    return;
+  }
+
+  playPromise
+    .then(() => {
+      playInFlight = false;
+      syncButtonState(true);
+      removeActivationListeners();
+    })
+    .catch((err) => {
+      playInFlight = false;
+      console.warn('[music] play() rejected:', err);
+      syncButtonState(false);
+    });
 }
 
 function pause(): void {
@@ -43,11 +67,8 @@ function isToggleButtonEvent(event: Event): boolean {
 }
 
 function onUserActivation(event: Event): void {
-  if (hasUserInteracted) return;
-  if (isToggleButtonEvent(event)) return;
-  hasUserInteracted = true;
-  removeActivationListeners();
-  play();
+  if (isMusicPlaying || isToggleButtonEvent(event)) return;
+  tryPlay();
 }
 
 function attachToggleListener(): void {
@@ -55,21 +76,18 @@ function attachToggleListener(): void {
   toggleButton.dataset.bound = 'true';
   toggleButton.addEventListener('click', (event) => {
     event.stopPropagation();
-    if (!hasUserInteracted) {
-      hasUserInteracted = true;
-      removeActivationListeners();
+    if (isMusicPlaying) {
+      pause();
+    } else {
+      tryPlay();
     }
-    isMusicPlaying ? pause() : play();
   });
 }
 
 function onPageLoad(): void {
   bind();
-  if (isMusicPlaying && toggleButton) {
-    toggleButton.classList.remove('is-playing');
-    void toggleButton.offsetWidth;
-    toggleButton.classList.add('is-playing');
-  }
+  const actuallyPlaying = !!backgroundPlayer && !backgroundPlayer.paused;
+  syncButtonState(actuallyPlaying);
 }
 
 export function initMusic(): void {
@@ -77,7 +95,10 @@ export function initMusic(): void {
   isInitialized = true;
 
   for (const eventName of ACTIVATION_EVENTS) {
-    document.addEventListener(eventName, onUserActivation, { capture: true, passive: true });
+    document.addEventListener(eventName, onUserActivation, {
+      capture: true,
+      passive: true,
+    });
   }
 
   bind();
