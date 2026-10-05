@@ -1,0 +1,90 @@
+@layer components {
+  .navigation-button {
+    position: relative;
+    height: 44px;
+    padding: 0 18px 0 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--color-on-surface-muted);
+    cursor: pointer;
+    text-decoration: none;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color      var(--duration-fast) var(--ease-standard),
+      background var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  .navigation-button.is-active {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+    color: var(--color-on-accent);
+    box-shadow: 0 6px 18px -6px var(--color-music-accent-ring);
+  }
+
+  .navigation-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .navigation-button__icon {
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+  }
+
+  .navigation-button__icon > svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .navigation-divider {
+    width: 1px;
+    height: 22px;
+    background: var(--color-outline);
+    margin: 0 8px;
+    flex: 0 0 auto;
+  }
+
+  @media (hover: hover) {
+    .navigation-button:hover {
+      color: var(--color-on-surface);
+      background: var(--color-interactive);
+    }
+
+    .navigation-button.is-active:hover {
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+      color: var(--color-on-accent);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .navigation-button {
+      height: 40px;
+      padding: 0 14px 0 10px;
+      font-size: 13px;
+      gap: 7px;
+      border-radius: 12px;
+    }
+
+    .navigation-button__icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .navigation-divider {
+      margin: 0 4px;
+    }
+  }
+}

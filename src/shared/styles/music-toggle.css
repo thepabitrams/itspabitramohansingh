@@ -1,0 +1,78 @@
+@layer components {
+  .music-toggle-button {
+    overflow: visible;
+  }
+
+  .music-toggle-button__icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    transition:
+      opacity   var(--duration-base) var(--ease-standard),
+      transform var(--duration-base) var(--ease-emphasized);
+  }
+
+  .music-toggle-button__icon--equalizer {
+    opacity: 0;
+    transform: scale(0.5);
+    overflow: visible;
+  }
+
+  .music-toggle-button.is-playing .music-toggle-button__icon--note {
+    opacity: 0;
+    transform: scale(0.4) rotate(-25deg);
+  }
+
+  .music-toggle-button.is-playing .music-toggle-button__icon--equalizer {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .music-toggle-button__icon--equalizer .equalizer-bar {
+    fill: currentColor;
+    transform-box: fill-box;
+    transform-origin: center center;
+    transform: scaleY(0.3);
+  }
+
+  .music-toggle-button.is-playing .equalizer-bar:nth-child(1) { animation: equalizer-pulse 0.82s ease-in-out infinite; }
+  .music-toggle-button.is-playing .equalizer-bar:nth-child(2) { animation: equalizer-pulse 0.58s ease-in-out infinite; }
+  .music-toggle-button.is-playing .equalizer-bar:nth-child(3) { animation: equalizer-pulse 0.95s ease-in-out infinite; }
+  .music-toggle-button.is-playing .equalizer-bar:nth-child(4) { animation: equalizer-pulse 0.68s ease-in-out infinite; }
+
+  .music-toggle-button.is-playing {
+    color: var(--color-music-accent);
+    background: var(--color-music-accent-soft);
+    animation: breathe-glow 2.2s ease-in-out infinite;
+  }
+
+  .music-toggle-button::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      var(--color-music-accent-ring) 0%,
+      transparent 68%
+    );
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity var(--duration-base) var(--ease-standard);
+  }
+
+  .music-toggle-button.is-playing::before {
+    opacity: 0.7;
+    animation: halo-soft 2.2s ease-in-out infinite;
+  }
+
+  @media (max-width: 640px) {
+    .music-toggle-button__icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

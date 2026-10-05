@@ -1,0 +1,32 @@
+@layer components {
+  .theme-toggle-button__sun,
+  .theme-toggle-button__moon,
+  .theme-toggle-button__rays {
+    transform-box: view-box;
+    transform-origin: center;
+    transition:
+      transform 0.55s cubic-bezier(0.34, 1.4, 0.5, 1),
+      opacity   var(--duration-base) var(--ease-standard);
+  }
+
+  .theme-toggle-button__moon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.35);
+  }
+
+  .dark .theme-toggle-button__sun {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.35);
+  }
+
+  .dark .theme-toggle-button__moon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  @media (hover: hover) {
+    .theme-toggle-button:hover .theme-toggle-button__rays {
+      animation: spin 6s linear infinite;
+    }
+  }
+}

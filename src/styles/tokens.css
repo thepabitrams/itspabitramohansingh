@@ -61,6 +61,7 @@
   --animate-slide-in-left:  slide-in-left 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
   --animate-slide-in-right: slide-in-right 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
   --animate-slide-in-up:    slide-in-up 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+  --animate-slide-in-down: slide-in-down 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
   --animate-profile-cycle:  profile-cycle 28s linear infinite;
 
   @keyframes profile-cycle {
@@ -87,6 +88,11 @@
     100% { transform: translateY(0);    opacity: 1; }
   }
 
+  @keyframes slide-in-down {
+  0%   { transform: translateY(-60px); opacity: 0; }
+  100% { transform: translateY(0);     opacity: 1; }
+  }
+  
   @keyframes equalizer-pulse {
     0%, 100% { transform: scaleY(0.3); }
     50%      { transform: scaleY(1); }

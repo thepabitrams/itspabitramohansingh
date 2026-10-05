@@ -1,0 +1,58 @@
+@layer components {
+  .profile-photo {
+    position: relative;
+    width: var(--spacing-photo);
+    height: var(--spacing-photo);
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: var(--shadow-photo);
+    transition:
+      box-shadow var(--duration-base) var(--ease-standard),
+      transform  var(--duration-base) var(--ease-emphasized);
+  }
+
+  .profile-photo__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: var(--animate-profile-cycle);
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+  }
+
+  .profile-photo__slide:nth-child(1) { animation-delay: 0s; }
+  .profile-photo__slide:nth-child(2) { animation-delay: 4s; }
+  .profile-photo__slide:nth-child(3) { animation-delay: 8s; }
+  .profile-photo__slide:nth-child(4) { animation-delay: 12s; }
+  .profile-photo__slide:nth-child(5) { animation-delay: 16s; }
+  .profile-photo__slide:nth-child(6) { animation-delay: 20s; }
+  .profile-photo__slide:nth-child(7) { animation-delay: 24s; }
+
+  @media (hover: hover) {
+    .profile-photo:hover {
+      transform: scale(1.04);
+      box-shadow: var(--shadow-photo-hover);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-photo {
+      width: var(--spacing-photo-compact);
+      height: var(--spacing-photo-compact);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .profile-photo__slide:first-child {
+      opacity: 1;
+    }
+
+    .profile-photo,
+    .profile-photo:hover {
+      transform: none;
+    }
+  }
+}

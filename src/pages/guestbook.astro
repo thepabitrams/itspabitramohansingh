@@ -18,15 +18,21 @@ import Toaster from '../features/guestbook/components/Toaster.astro';
     </header>
 
     <section class="mb-8" aria-label="Write an entry">
-      <SignInBar />
+      <div class="animate-slide-in-down animate-delay-100">
+        <SignInBar />
+      </div>
       <Composer />
     </section>
 
     <hr class="border-0 h-px bg-neutral-200 dark:bg-neutral-800 mb-7" />
 
     <section class="grid grid-cols-[320px_1fr] gap-5 max-md:grid-cols-1" aria-label="Visitors and messages">
-      <VisitorGrid />
-      <DetailPanel />
+      <div class="animate-slide-in-left animate-delay-200">
+        <VisitorGrid />
+      </div>
+      <div class="animate-slide-in-right animate-delay-300">
+        <DetailPanel />
+      </div>
     </section>
   </main>
 

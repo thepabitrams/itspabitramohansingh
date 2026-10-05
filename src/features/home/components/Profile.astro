@@ -1,5 +1,5 @@
 ---
-const photos = [
+const profilePhotoSlides = [
   { src: '/profile/portrait-01.jpg', alt: 'Pabitra Mohan Singh' },
   { src: '/profile/portrait-02.jpg', alt: '' },
   { src: '/profile/portrait-03.jpg', alt: '' },
@@ -10,16 +10,16 @@ const photos = [
 ];
 ---
 
-<div class="shrink-0 animate-slide-in-right animate-delay-200">
+<div class="shrink-0">
   <div class="profile-photo">
-    {photos.map((photo, index) => (
+    {profilePhotoSlides.map((profilePhoto, slideIndex) => (
       <img
         class="profile-photo__slide"
-        src={photo.src}
-        alt={photo.alt}
-        loading={index === 0 ? 'eager' : 'lazy'}
-        fetchpriority={index === 0 ? 'high' : undefined}
-        aria-hidden={index > 0 ? 'true' : undefined}
+        src={profilePhoto.src}
+        alt={profilePhoto.alt}
+        loading={slideIndex === 0 ? 'eager' : 'lazy'}
+        fetchpriority={slideIndex === 0 ? 'high' : undefined}
+        aria-hidden={slideIndex > 0 ? 'true' : undefined}
       />
     ))}
   </div>
