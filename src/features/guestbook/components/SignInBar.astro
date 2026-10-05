@@ -15,6 +15,6 @@ import Button from './ui/Button.astro';
 </Card>
 
 <script>
-  import { setupSignInBar } from '../scripts/signin-bar';
-  setupSignInBar();
+  import { setupSignInBar } from '../scripts/sign-in-bar';
+  document.addEventListener('astro:page-load', setupSignInBar);
 </script>

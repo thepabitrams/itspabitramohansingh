@@ -17,5 +17,5 @@ import Icon from './ui/Icon.astro';
 
 <script>
   import { setupDetailPanel } from '../scripts/detail-panel';
-  setupDetailPanel();
+  document.addEventListener('astro:page-load', setupDetailPanel);
 </script>

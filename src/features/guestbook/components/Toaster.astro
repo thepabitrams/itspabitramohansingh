@@ -4,5 +4,5 @@
 
 <script>
   import { setupToaster } from '../scripts/toaster';
-  setupToaster();
+  document.addEventListener('astro:page-load', setupToaster);
 </script>

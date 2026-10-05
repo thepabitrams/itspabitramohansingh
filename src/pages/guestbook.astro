@@ -9,8 +9,8 @@ import Toaster from '../features/guestbook/components/Toaster.astro';
 ---
 
 <BaseLayout title="Guestbook">
-  <main class="max-w-[960px] mx-auto px-6 pb-[72px] text-[15px] leading-[1.55] text-neutral-900 dark:text-neutral-100 max-[520px]:px-[18px] max-[520px]:pb-12">
-    <header class="pt-14 pb-8 max-[520px]:pt-10 max-[520px]:pb-[26px]">
+  <main class="max-w-240 mx-auto px-6 pb-18 text-[15px] leading-[1.55] text-neutral-900 dark:text-neutral-100 max-[520px]:px-4.5 max-[520px]:pb-12">
+    <header class="pt-14 pb-8 max-[520px]:pt-10 max-[520px]:pb-6.5">
       <h1 class="text-[26px] font-semibold tracking-tight m-0 max-[520px]:text-[22px]">Guestbook</h1>
       <p class="mt-1.5 text-[14.5px] text-neutral-500 dark:text-neutral-400 m-0">
         Leave a note — then tap any visitor to read what they wrote.
@@ -40,7 +40,15 @@ import Toaster from '../features/guestbook/components/Toaster.astro';
   <Toaster />
 
   <script>
-    import { initGuestbook } from '../features/guestbook/scripts/orchestrator';
-    initGuestbook();
+      import { initGuestbook } from '../features/guestbook/scripts/guestbook';
+      import { removeAllListeners } from '../features/guestbook/scripts/event-bus';
+
+    const startGuestbook = (): void => {
+      if (!document.getElementById('visitorGrid')) return;
+      initGuestbook();
+    };
+
+    document.addEventListener('astro:page-load', startGuestbook);
+    document.addEventListener('astro:before-swap', removeAllListeners);
   </script>
 </BaseLayout>

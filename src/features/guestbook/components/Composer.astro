@@ -7,7 +7,7 @@ import Button from './ui/Button.astro';
   padding="none"
   class="focus-within:border-neutral-300 dark:focus-within:border-neutral-700 transition-colors"
 >
-  <form id="composer" class="px-5 pt-4.5 pb-3.5">
+  <form id="composer" class="px-5 pt-4.5 pb-3.5" hidden>
     <div class="flex gap-3 items-start">
       <span id="composerAva" class="shrink-0 grid place-items-center rounded-full w-9 h-9 text-[11px] font-semibold tracking-wide select-none bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300" aria-hidden="true">Y</span>
       <label for="entryText" class="sr-only">Your message</label>
@@ -25,5 +25,5 @@ import Button from './ui/Button.astro';
 
 <script>
   import { setupComposer } from '../scripts/composer';
-  setupComposer();
+  document.addEventListener('astro:page-load', setupComposer);
 </script>

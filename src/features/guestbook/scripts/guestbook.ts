@@ -1,10 +1,10 @@
-import { dispatch, listen } from './events';
+import { dispatch, listen } from './event-bus';
 import { getSession, signIn, signOut } from '../../../core/auth/client';
 import { setupAvatarFallback } from './utils';
 import type { GuestbookUser, VisitorMessage } from './types';
 
 let currentUser: GuestbookUser | null = null;
-let visitorList: VisitorMessage[] = [];
+let visitorMessages: VisitorMessage[] = [];
 let activeVisitorId: number | null = null;
 
 async function fetchSession(): Promise<void> {
@@ -14,15 +14,15 @@ async function fetchSession(): Promise<void> {
 
 async function fetchMessages(): Promise<void> {
   try {
-    const res = await fetch('/api/guestbook');
-    const data: any = await res.json();
-    visitorList = data.messages ?? [];
+    const response = await fetch('/api/guestbook');
+    const payload = (await response.json()) as { messages?: VisitorMessage[] };
+    visitorMessages = payload.messages ?? [];
     dispatch('visitor:list-updated', {
-      messages: visitorList,
+      messages: visitorMessages,
       activeId: activeVisitorId,
     });
-  } catch (err) {
-    console.error('Failed to load messages', err);
+  } catch (error) {
+    console.error('Failed to load messages', error);
   }
 }
 
@@ -30,15 +30,15 @@ async function submitMessage(text: string): Promise<void> {
   if (!currentUser) return;
 
   try {
-    const res = await fetch('/api/guestbook', {
+    const response = await fetch('/api/guestbook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text }),
     });
 
-    if (!res.ok) {
-      const err: any = await res.json();
-      dispatch('toast:show', { text: err.error || 'Failed to post' });
+    if (!response.ok) {
+      const errorPayload = (await response.json()) as { error?: string };
+      dispatch('toast:show', { text: errorPayload.error || 'Failed to post' });
       dispatch('message:posted', { success: false });
       return;
     }
@@ -46,24 +46,25 @@ async function submitMessage(text: string): Promise<void> {
     dispatch('toast:show', { text: 'Posted' });
     await fetchMessages();
 
-    if (visitorList.length > 0) {
-      activeVisitorId = visitorList[0].id;
+    if (visitorMessages.length > 0) {
+      activeVisitorId = visitorMessages[0].id;
       dispatch('visitor:active-changed', { id: activeVisitorId });
       dispatch('visitor:selected', { id: activeVisitorId });
     }
 
     dispatch('message:posted', { success: true });
-  } catch {
+  } catch (error) {
     dispatch('toast:show', { text: 'Network error' });
     dispatch('message:posted', { success: false });
+    console.error('Failed to submit message', error);
   }
 }
 
 async function handleSignIn(provider: 'google' | 'github'): Promise<void> {
   try {
     await signIn(provider);
-  } catch (err) {
-    console.error('Sign-in error:', err);
+  } catch (error) {
+    console.error('Sign-in error:', error);
     dispatch('toast:show', { text: 'Sign-in failed. Try again.' });
   }
 }
@@ -74,8 +75,9 @@ async function handleSignOut(): Promise<void> {
     currentUser = null;
     dispatch('auth:session-changed', { user: null });
     dispatch('toast:show', { text: 'Signed out' });
-  } catch {
+  } catch (error) {
     dispatch('toast:show', { text: 'Sign-out failed' });
+    console.error('Sign-out error:', error);
   }
 }
 
@@ -89,13 +91,13 @@ export function initGuestbook(): void {
   listen<{ id: number }>('visitor:selected', ({ id }) => {
     activeVisitorId = id;
     dispatch('visitor:active-changed', { id });
-    const msg = visitorList.find((v) => v.id === id) ?? null;
-    dispatch('visitor:single-data', { message: msg });
+    const message = visitorMessages.find((visitor) => visitor.id === id) ?? null;
+    dispatch('visitor:single-data', { message });
   });
 
   listen<{ id: number }>('visitor:request-single', ({ id }) => {
-    const msg = visitorList.find((v) => v.id === id) ?? null;
-    dispatch('visitor:single-data', { message: msg });
+    const message = visitorMessages.find((visitor) => visitor.id === id) ?? null;
+    dispatch('visitor:single-data', { message });
   });
 
   listen<{ text: string }>('composer:submit', ({ text }) => {

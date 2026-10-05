@@ -12,5 +12,5 @@ import Card from './ui/Card.astro';
 
 <script>
   import { setupVisitorGrid } from '../scripts/visitor-grid';
-  setupVisitorGrid();
+  document.addEventListener('astro:page-load', setupVisitorGrid);
 </script>

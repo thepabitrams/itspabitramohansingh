@@ -20,6 +20,6 @@ import ProviderButton from './ui/ProviderButton.astro';
 </div>
 
 <script>
-  import { setupSignInModal } from '../scripts/signin-modal';
-  setupSignInModal();
+  import { setupSignInModal } from '../scripts/sign-in-modal';
+  document.addEventListener('astro:page-load', setupSignInModal);
 </script>
