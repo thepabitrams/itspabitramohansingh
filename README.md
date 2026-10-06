@@ -24,8 +24,6 @@
 - **TypeScript** – end-to-end strict type checking
 - **Modular CSS Architecture** – cascade layers with tokens, base, components, and animations
 
----
-
 ## Technology Stack
 
 - Astro 7 (server output)
@@ -39,8 +37,6 @@
 - Drizzle ORM
 - Vite (bundled with Astro)
 - PNPM
-
----
 
 ## Architecture Overview
 
@@ -140,8 +136,6 @@ pnpm build
 npx wrangler deploy
 ```
 
----
-
 ## Deployment
 
 Production deployment is automated via Cloudflare Workers Builds.
@@ -175,8 +169,6 @@ Configured in `wrangler.jsonc`:
 - IMAGES – Cloudflare Images binding
 - ASSETS – Static asset binding
 
----
-
 ## Folder Structure
 
 ```text
@@ -197,32 +189,22 @@ tsconfig.json            # TypeScript configuration
 package.json             # Project manifest
 ```
 
----
-
 ## Contributing
 
 Issues and PRs are welcome. See [AGENTS.md](./AGENTS.md) for AI agent instructions.
 
----
-
 ## License
 
 This project is licensed under the [MIT License](./LICENSE). See [LICENSES](./LICENSES/) for third-party attributions.
-
----
 
 ## Documentation
 
 - [CSS Architecture](./src/styles/README.md) – Design system, cascade layers, and usage guidelines
 - [AGENTS.md](./AGENTS.md) – Instructions for AI coding agents working on this project
 
----
-
 ## Acknowledgements
 
 Built with Astro, Tailwind CSS, and TypeScript. Built with a modular, scalable architecture for maintainability and developer experience.
-
----
 
 <div align="center">
 
