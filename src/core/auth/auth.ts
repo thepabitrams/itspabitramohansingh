@@ -2,19 +2,19 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { createDb, schema } from '../../db';
 
-export function createAuth(env: CloudflareEnv) {
-  const db = createDb(env.DB);
+export function createAuth(environment: Cloudflare.Env) {
+  const database = createDb(environment.DB);
 
   return betterAuth({
-    secret: env.BETTER_AUTH_SECRET,
-    baseURL: env.BETTER_AUTH_URL,
-    database: drizzleAdapter(db, {
+    secret: environment.BETTER_AUTH_SECRET,
+    baseURL: environment.BETTER_AUTH_URL,
+    database: drizzleAdapter(database, {
       provider: 'sqlite',
       schema: {
-        user: schema.user,
-        session: schema.session,
-        account: schema.account,
-        verification: schema.verification,
+        user: schema.users,
+        session: schema.sessions,
+        account: schema.accounts,
+        verification: schema.verifications,
       },
     }),
     account: {
@@ -23,8 +23,8 @@ export function createAuth(env: CloudflareEnv) {
     },
     socialProviders: {
       google: {
-        clientId: env.GOOGLE_CLIENT_ID,
-        clientSecret: env.GOOGLE_CLIENT_SECRET,
+        clientId: environment.GOOGLE_CLIENT_ID,
+        clientSecret: environment.GOOGLE_CLIENT_SECRET,
       },
     },
   });

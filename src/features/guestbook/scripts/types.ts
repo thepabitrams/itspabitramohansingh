@@ -1,9 +1,4 @@
-export interface GuestbookUser {
-  id: string;
-  name: string;
-  email: string;
-  image?: string | null;
-}
+export type { SessionUser } from '../../../core/auth/types';
 
 export interface VisitorMessage {
   id: number;

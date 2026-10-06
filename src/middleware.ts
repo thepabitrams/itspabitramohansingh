@@ -3,7 +3,7 @@ import { env } from 'cloudflare:workers';
 import { createAuth } from './core/auth/auth';
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const auth = createAuth(env as any);
+  const auth = createAuth(env);
   const session = await auth.api.getSession({
     headers: context.request.headers,
   });

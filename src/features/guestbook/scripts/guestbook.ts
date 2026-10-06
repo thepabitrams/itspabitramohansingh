@@ -1,9 +1,10 @@
 import { dispatch, listen } from './event-bus';
 import { getSession, signIn, signOut } from '../../../core/auth/client';
 import { setupAvatarFallback } from './utils';
-import type { GuestbookUser, VisitorMessage } from './types';
+import type { SessionUser } from '../../../core/auth/types';
+import type { VisitorMessage } from './types';
 
-let currentUser: GuestbookUser | null = null;
+let currentUser: SessionUser | null = null;
 let visitorMessages: VisitorMessage[] = [];
 let activeVisitorId: number | null = null;
 

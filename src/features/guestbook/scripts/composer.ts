@@ -7,7 +7,7 @@ import {
   isUsablePicture,
   MAX_CHARS,
 } from './utils';
-import type { GuestbookUser } from './types';
+import type { SessionUser } from '../../../core/auth/types';
 
 export function setupComposer(): void {
   const composerForm = queryElement<HTMLFormElement>('#composer');
@@ -17,7 +17,7 @@ export function setupComposer(): void {
   const postButton = queryElement<HTMLButtonElement>('#postBtn');
   const signOutButton = queryElement<HTMLButtonElement>('#signOutBtn');
 
-  listen<{ user: GuestbookUser | null }>('auth:session-changed', ({ user }) => {
+  listen<{ user: SessionUser | null }>('auth:session-changed', ({ user }) => {
     if (!composerForm) return;
     composerForm.hidden = !user;
 

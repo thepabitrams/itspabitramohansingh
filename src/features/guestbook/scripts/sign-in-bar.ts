@@ -1,11 +1,11 @@
 import { listen } from './event-bus';
 import { queryElement } from './dom-query';
-import type { GuestbookUser } from './types';
+import type { SessionUser } from '../../../core/auth/types';
 
 export function setupSignInBar(): void {
   const lockBarElement = queryElement<HTMLElement>('#lockBar');
 
-  listen<{ user: GuestbookUser | null }>('auth:session-changed', ({ user }) => {
+  listen<{ user: SessionUser | null }>('auth:session-changed', ({ user }) => {
     if (lockBarElement) lockBarElement.hidden = !!user;
   });
 }
