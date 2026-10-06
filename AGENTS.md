@@ -1,8 +1,6 @@
-# AGENTS.md
-
 ## Project Overview
 
-Personal site and guestbook built with Astro 7, TypeScript 7, Tailwind CSS v4, and Cloudflare Workers. Deployed at `its.pabitramohansingh.workers.dev`. Uses D1 (SQLite) for persistence, KV for sessions, and Cloudflare AI (Llama Guard 3) for guestbook message moderation.
+Personal site and guestbook built with Astro 7, TypeScript 7, Tailwind CSS v4, and Cloudflare Workers. Deployed at [its.pabitramohansingh.workers.dev](https://its.pabitramohansingh.workers.dev). Uses D1 (SQLite) for persistence, KV for sessions, and Cloudflare AI (Llama Guard 3) for guestbook message moderation.
 
 ## Commands
 
@@ -52,7 +50,6 @@ Dependency flow: `pages → layouts → features → shared → core → db`
 ### Always do
 
 - Run `pnpm build` before committing to catch TypeScript and Astro errors.
-- Use conventional commits: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`.
 - Test changes in both light and dark mode via `pnpm dev`.
 
 ### Ask first
