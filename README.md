@@ -1,8 +1,8 @@
 <div align="center">
 
-# Portfolio Website by Pabitra Mohan Singh
+# Personal Site by Pabitra Mohan Singh
 
-**A modern, performant personal portfolio built with Astro, Tailwind CSS, and TypeScript to showcase my skills, experience, and projects.**
+**Personal site and guestbook built with Astro, Tailwind CSS, and TypeScript.**
 
 [![Astro](https://img.shields.io/badge/Astro-7.x-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -69,6 +69,7 @@ pages → layouts → features → shared → core → db
 - Pages import from layouts, features, and shared
 - Features import from shared and core
 - Shared imports from core
+- Core imports from db
 
 This hierarchy prevents circular dependencies and keeps the codebase predictable.
 
@@ -102,7 +103,7 @@ pnpm install
 
 ### Local Environment
 
-Create .dev.vars at the project root:
+Create `.dev.vars` at the project root:
 
 ```env
 BETTER_AUTH_SECRET=<your-secret>
@@ -111,14 +112,15 @@ GOOGLE_CLIENT_ID=<your-client-id>
 GOOGLE_CLIENT_SECRET=<your-client-secret>
 ```
 
-.dev.vars is gitignored. Never commit it.
+`.dev.vars` is gitignored. Never commit it.
 
 ### Database Setup
 
 Generate and apply Drizzle migrations locally:
+
 ```bash
-pnpm drizzle-kit generate
-pnpm wrangler d1 migrations apply guestbook-db --local
+npx drizzle-kit generate
+npx wrangler d1 migrations apply guestbook-db --local
 ```
 
 ### Development
@@ -139,7 +141,7 @@ pnpm build
 
 ```bash
 pnpm build
-pnpm wrangler deploy
+npx wrangler deploy
 ```
 
 ---
@@ -155,21 +157,21 @@ Production deployment is automated via Cloudflare Workers Builds.
 | Deploy command | `npx wrangler deploy` |
 | Preview command | `npx wrangler versions upload` |
 
-Push to main triggers a production deploy to its.pabitramohansingh.workers.dev. Pushes to any other branch create preview versions.
+Push to `main` triggers a production deploy to `its.pabitramohansingh.workers.dev`. Pushes to any other branch create preview versions.
 
 ### Required Secrets
 
 Set once via Wrangler:
 
 ```bash
-pnpm wrangler secret put BETTER_AUTH_SECRET
-pnpm wrangler secret put GOOGLE_CLIENT_ID
-pnpm wrangler secret put GOOGLE_CLIENT_SECRET
+npx wrangler secret put BETTER_AUTH_SECRET
+npx wrangler secret put GOOGLE_CLIENT_ID
+npx wrangler secret put GOOGLE_CLIENT_SECRET
 ```
 
 ### Cloudflare Bindings
 
-Configured in wrangler.jsonc:
+Configured in `wrangler.jsonc`:
 
 - DB – D1 database (guestbook-db)
 - SESSION – KV namespace (auto-provisioned)
@@ -182,14 +184,21 @@ Configured in wrangler.jsonc:
 ## Folder Structure
 
 ```text
-   src/
-    ├── core/         # Shared infrastructure
-    ├── db/           # Drizzle schema and client
-    ├── features/     # Feature modules
-    ├── layouts/      # Page shell
-    ├── pages/        # Routes and API endpoints
-    ├── shared/       # Reusable UI and utilities
-    └── styles/       # Modular CSS architecture (tokens, base, components, animations)
+src/
+├── core/                # Shared infrastructure
+├── db/                  # Drizzle schema and client
+├── features/            # Feature modules
+├── layouts/             # Page shell
+├── pages/               # Routes and API endpoints
+├── shared/              # Reusable UI and utilities
+└── styles/              # Modular CSS architecture
+
+public/                  # Static assets
+astro.config.mjs         # Astro configuration
+wrangler.jsonc           # Cloudflare Workers configuration
+drizzle.config.ts        # Drizzle ORM configuration
+tsconfig.json            # TypeScript configuration
+package.json             # Project manifest
 ```
 
 ---
@@ -202,7 +211,7 @@ Issues and PRs are welcome. See [AGENTS.md](./AGENTS.md) for AI agent instructio
 
 ## License
 
-See [NOTICE](./NOTICE) and [LICENSES](./LICENSES/) for full attribution.
+This project is licensed under the [MIT License](./LICENSE). See [LICENSES](./LICENSES/) for third-party attributions.
 
 ---
 
