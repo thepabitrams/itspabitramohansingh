@@ -202,7 +202,6 @@ This project is licensed under the [MIT License](./LICENSE). See [LICENSES](./LI
 ## Documentation
 
 - [CSS Architecture](./src/styles/README.md) – Design system, cascade layers, and usage guidelines
-- [AGENTS.md](./AGENTS.md) – Instructions for AI coding agents working on this project
 
 ## Acknowledgements
 
