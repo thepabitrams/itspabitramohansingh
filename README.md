@@ -1,4 +1,3 @@
-
 <div align="center">
 
 # Portfolio Website by Pabitra Mohan Singh
@@ -11,31 +10,37 @@
 
 ---
 
-*Single source of truth for design tokens, component patterns, and motion.*
-
 </div>
 
 ---
 
 ## Features
 
-- Dark / Light Theme – client-side toggle with local storage persistence
-- Background Music Player – autoplay on first interaction, loops seamlessly across page navigations
-- Static Site Generation – fully pre-rendered HTML, zero client-side JavaScript by default
-- SEO Optimized – meta tags, Open Graph, semantic HTML5
-- Fully Responsive – mobile-first layout with Tailwind CSS
-- Blazing Fast – inline critical CSS, HTML compression, no render-blocking scripts
-- Accessible – semantic landmarks, heading hierarchy, skip-to-main-content link
-- TypeScript – end-to-end static type checking
-- Modular CSS Architecture – cascade layers with tokens, base, components, and animations
+- **Dark / Light Theme** – client-side toggle with local storage persistence
+- **Background Music Player** – autoplay on first interaction, persists across navigation
+- **Guestbook** – OAuth sign-in via Google, AI-moderated messages, auto-pruned storage
+- **Server-Side Rendering** – Astro server output on Cloudflare Workers
+- **AI Moderation** – Llama Guard 3 scans every message before it reaches the database
+- **D1 Database** – persistent storage with Drizzle ORM migrations
+- **SEO Optimized** – meta tags, Open Graph, semantic HTML5
+- **Fully Responsive** – mobile-first layout with Tailwind CSS
+- **Accessible** – semantic landmarks, heading hierarchy, skip-to-main-content link
+- **TypeScript** – end-to-end strict type checking
+- **Modular CSS Architecture** – cascade layers with tokens, base, components, and animations
 
 ---
 
 ## Technology Stack
 
-- Astro 7
+- Astro 7 (server output)
 - Tailwind CSS 4
 - TypeScript 7
+- Cloudflare Workers
+- Cloudflare D1 (SQLite)
+- Cloudflare KV (sessions)
+- Cloudflare AI (Llama Guard 3 moderation)
+- Better Auth (OAuth)
+- Drizzle ORM
 - Vite (bundled with Astro)
 - PNPM
 
@@ -43,27 +48,38 @@
 
 ## Architecture Overview
 
-The codebase follows a component-based architecture designed for clarity and maintainability.
+The codebase follows a feature-based architecture designed for clarity and maintainability.
 
 ### Core Layers
 
-- **Pages** – Route definitions (`index.astro`, `guestbook.astro`)
-- **Layouts** – Page shells and shared layout pieces (BaseLayout.astro, Header.astro, Footer.astro)
-- **Components** – Reusable UI pieces (home, ui, interactive, seo)
-- **Styles** – Modular CSS architecture (tokens, base, components, animations)
+- **`src/core/`** – Shared infrastructure (auth, database)
+- **`src/shared/`** – Reusable UI, SEO, scripts, and styles used across the site
+- **`src/features/`** – Self-contained feature modules (home, guestbook)
+- **`src/layouts/`** – Page shell (`BaseLayout.astro`)
+- **`src/pages/`** – Route definitions and API endpoints
+- **`src/styles/`** – Global design tokens, base styles, and animation utilities
+- **`src/db/`** – Drizzle schema and database client
 
 ### Dependency Flow
 
 ```text
-Pages → Layouts → Components → Styles 
+pages → layouts → features → shared → core → db
 ```
 
-- Pages import from Layouts, Components
-- Layouts import from Components and Styles
-- Components import from Styles
-- Types has no dependencies
+- Pages import from layouts, features, and shared
+- Features import from shared and core
+- Shared imports from core
 
 This hierarchy prevents circular dependencies and keeps the codebase predictable.
+
+### Feature Module Structure
+
+```text
+features/<name>/
+├── components/     # Astro components
+├── scripts/        # Client-side behavior
+└── styles/         # Feature-scoped CSS (when needed)
+```
 
 ---
 
@@ -71,8 +87,10 @@ This hierarchy prevents circular dependencies and keeps the codebase predictable
 
 ### Prerequisites
 
-- Node.js 22.12.0 or later
-- PNPM 9.0 or later
+- Node.js 22.x
+- PNPM 10.x
+- Cloudflare account (for deployment)
+- Google OAuth credentials (for guestbook sign-in)
 
 ### Installation
 
@@ -80,6 +98,27 @@ This hierarchy prevents circular dependencies and keeps the codebase predictable
 git clone https://github.com/thepabitrams/itspabitramohansingh.git
 cd itspabitramohansingh
 pnpm install
+```
+
+### Local Environment
+
+Create .dev.vars at the project root:
+
+```env
+BETTER_AUTH_SECRET=<your-secret>
+BETTER_AUTH_URL=http://localhost:8787
+GOOGLE_CLIENT_ID=<your-client-id>
+GOOGLE_CLIENT_SECRET=<your-client-secret>
+```
+
+.dev.vars is gitignored. Never commit it.
+
+### Database Setup
+
+Generate and apply Drizzle migrations locally:
+```bash
+pnpm drizzle-kit generate
+pnpm wrangler d1 migrations apply guestbook-db --local
 ```
 
 ### Development
@@ -90,41 +129,81 @@ Start the dev server:
 pnpm dev
 ```
 
-When developing with AI coding agents (Claude Code, Cursor, etc.), use background mode:
-
-```bash
-astro dev --background
-```
-
-Manage the background server:
-
-```bash
-astro dev status   # Check if running
-astro dev logs     # View output
-astro dev stop     # Stop server
-```
-
 ### Production Build
 
 ```bash
 pnpm build
 ```
 
-### Preview Production Build
+### Manual Deploy
 
 ```bash
-pnpm preview
+pnpm build
+pnpm wrangler deploy
 ```
+
+---
+
+## Deployment
+
+Production deployment is automated via Cloudflare Workers Builds.
+
+| Setting | Value |
+|---|---|
+| Production branch | `main` |
+| Build command | `pnpm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Preview command | `npx wrangler versions upload` |
+
+Push to main triggers a production deploy to its.pabitramohansingh.workers.dev. Pushes to any other branch create preview versions.
+
+### Required Secrets
+
+Set once via Wrangler:
+
+```bash
+pnpm wrangler secret put BETTER_AUTH_SECRET
+pnpm wrangler secret put GOOGLE_CLIENT_ID
+pnpm wrangler secret put GOOGLE_CLIENT_SECRET
+```
+
+### Cloudflare Bindings
+
+Configured in wrangler.jsonc:
+
+- DB – D1 database (guestbook-db)
+- SESSION – KV namespace (auto-provisioned)
+- AI – Workers AI binding
+- IMAGES – Cloudflare Images binding
+- ASSETS – Static asset binding
+
 ---
 
 ## Folder Structure
+
 ```text
    src/
-    ├── components/   # Reusable Astro UI components
-    ├── layouts/      # Page layout wrappers
-    ├── pages/        # Route definitions (home, guestbook)
+    ├── core/         # Shared infrastructure
+    ├── db/           # Drizzle schema and client
+    ├── features/     # Feature modules
+    ├── layouts/      # Page shell
+    ├── pages/        # Routes and API endpoints
+    ├── shared/       # Reusable UI and utilities
     └── styles/       # Modular CSS architecture (tokens, base, components, animations)
 ```
+
+---
+
+## Contributing
+
+Issues and PRs are welcome. See [AGENTS.md](./AGENTS.md) for AI agent instructions.
+
+---
+
+## License
+
+See [NOTICE](./NOTICE) and [LICENSES](./LICENSES/) for full attribution.
+
 ---
 
 ## Documentation
@@ -137,8 +216,6 @@ pnpm preview
 ## Acknowledgements
 
 Built with Astro, Tailwind CSS, and TypeScript. Built with a modular, scalable architecture for maintainability and developer experience.
-
-See the [NOTICE](./NOTICE) file and [LICENSES](./LICENSES/) folder for full attribution.
 
 ---
 
