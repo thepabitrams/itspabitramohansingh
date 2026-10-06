@@ -10,6 +10,10 @@
 
 </div>
 
+## Demo
+
+https://github.com/user-attachments/assets/1a8671b6-e67e-45b0-9d42-c534c4a15888
+
 ## Features
 
 - **Dark / Light Theme** – client-side toggle with local storage persistence
