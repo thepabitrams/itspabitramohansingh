@@ -74,8 +74,6 @@ features/<name>/
 └── styles/         # Feature-scoped CSS (when needed)
 ```
 
----
-
 ## Getting Started
 
 ### Prerequisites
@@ -205,6 +203,8 @@ This project is licensed under the [MIT License](./LICENSE). See [LICENSES](./LI
 ## Acknowledgements
 
 Built with Astro, Tailwind CSS, and TypeScript. Built with a modular, scalable architecture for maintainability and developer experience.
+
+---
 
 <div align="center">
 
