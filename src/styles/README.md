@@ -53,6 +53,10 @@ Add a feature → one `@import` line. Remove a feature → delete folder and imp
 
 If it's none of those, use Tailwind utilities inline.
 
-## License
+---
 
-MIT. See [LICENSE](../../LICENSE).
+<div align="center">
+
+**Made by [Pabitra Mohan Singh](https://www.linkedin.com/in/pabitramohansingh)**
+
+</div>
