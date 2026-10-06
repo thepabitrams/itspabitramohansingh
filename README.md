@@ -201,7 +201,7 @@ This project is licensed under the [MIT License](./LICENSE). See [LICENSES](./LI
 
 ## Documentation
 
-- [CSS Architecture](./src/styles/README.md) – Design system, cascade layers, and usage guidelines
+[CSS Architecture](./src/styles/README.md) – Design system, cascade layers, and usage guidelines
 
 ## Acknowledgements
 
