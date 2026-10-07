@@ -14,6 +14,30 @@
 
 https://github.com/user-attachments/assets/1a8671b6-e67e-45b0-9d42-c534c4a15888
 
+### Desktop
+
+<p align="center">
+  <img src="./public/screenshots/desktop-home-light.jpg" alt="Home light" width="420" />
+  <img src="./public/screenshots/desktop-home-dark.jpg" alt="Home dark" width="420" />
+</p>
+
+<p align="center">
+  <img src="./public/screenshots/desktop-guestbook-light.jpg" alt="Guestbook light" width="420" />
+  <img src="./public/screenshots/desktop-guestbook-dark.jpg" alt="Guestbook dark" width="420" />
+</p>
+
+### Mobile
+
+<p align="center">
+  <img src="./public/screenshots/mobile-home-light.jpg" alt="Home light" width="220" />
+  <img src="./public/screenshots/mobile-home-dark.jpg" alt="Home dark" width="220" />
+</p>
+
+<p align="center">
+  <img src="./public/screenshots/mobile-guestbook-light.jpg" alt="Guestbook light" width="220" />
+  <img src="./public/screenshots/mobile-guestbook-dark.jpg" alt="Guestbook dark" width="220" />
+</p>
+
 ## Features
 
 - **Dark / Light Theme** – client-side toggle with local storage persistence
