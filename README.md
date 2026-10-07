@@ -17,13 +17,13 @@ https://github.com/user-attachments/assets/1a8671b6-e67e-45b0-9d42-c534c4a15888
 ### Desktop
 
 <p align="center">
-  <img src="./public/screenshots/desktop-home-light.jpg" alt="Home light" width="420" />
-  <img src="./public/screenshots/desktop-home-dark.jpg" alt="Home dark" width="420" />
+  <img src="./public/screenshots/desktop-home-light.jpg" alt="Home light" width="400" />
+  <img src="./public/screenshots/desktop-home-dark.jpg" alt="Home dark" width="400" />
 </p>
 
 <p align="center">
-  <img src="./public/screenshots/desktop-guestbook-light.jpg" alt="Guestbook light" width="420" />
-  <img src="./public/screenshots/desktop-guestbook-dark.jpg" alt="Guestbook dark" width="420" />
+  <img src="./public/screenshots/desktop-guestbook-light.jpg" alt="Guestbook light" width="400" />
+  <img src="./public/screenshots/desktop-guestbook-dark.jpg" alt="Guestbook dark" width="400" />
 </p>
 
 ### Mobile
